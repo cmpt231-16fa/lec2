@@ -1,0 +1,124 @@
+/* Shading background images */
+@media print {
+  section[data-background-image] .slide-background {
+    background-color: rgba(0,0,0,0.85);
+    background-blend-mode: overlay;
+  }
+}
+section[data-background-image] {
+  background-color: rgba(0,0,0,0.85);
+}
+@media print {
+  section.empty[data-background-image] .slide-background {
+    background-color: rgba(0,0,0,0);
+  }
+}
+section.empty[data-background-image] {
+  background-color: rgba(0,0,0,0);
+  text-shadow: black 0 0 0.35em;
+}
+
+/* Override slide centering */
+@media screen {
+  section.top {
+    top: 0 !important;
+  }
+  section.bottom {
+    top: initial !important;
+    bottom: 0;
+  }
+}
+
+/* Small text, e.g., Scripture refs.
+ * Override black.css: .reveal small {} */
+.reveal section small {
+  vertical-align: inherit;
+}
+
+/* Highlighted Text */
+.reveal section strong {
+  color: yellow;
+}
+.reveal section em {
+  color: #17ff2e;
+}
+.reveal section .hl1 {
+  color: #17ff2e;
+}
+.reveal section .hl2 {
+  color: #19b1ff;
+}
+.reveal section .hl3 {
+  color: #ff2c2d;
+}
+.reveal section.has-light-background strong {
+  color: #e20606;
+}
+
+/* Special theme for review/application questions */
+.reveal section.Q * {
+  text-transform: none;
+}
+.reveal section.Q h2:after {
+  border: none;
+}
+
+/* Titles / headers */
+.reveal section h1,
+.reveal section h2,
+.reveal section h3,
+.reveal section h4,
+.reveal section h5,
+.reveal section h6 {
+  text-transform: none;
+  text-shadow: inherit;
+}
+.reveal section h2 {
+  margin-bottom: 2rem;
+}
+.reveal section h2:after {
+  content: "";
+  display: block;
+  margin: auto;
+  width: 30%;
+  border-bottom: 1px solid;
+}
+
+/* Flexbox layout for images */
+.imgbox {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+.imgbox > div {
+  flex: 1;
+}
+.reveal section .imgbox img {
+  border: none;
+}
+
+/* Image captions */
+.reveal section .caption {
+  font-size: 50%;
+  color: #aaa;
+}
+@media screen {
+  .reveal section.empty .caption {
+    background-color: rgba(0,0,0,0.85);
+  }
+}
+
+/* Common slide header/footer */
+#header, #footer {
+  position: absolute;
+  left: 0;
+  font-size: 60%;
+}
+#header {
+  top: 0;
+}
+#footer {
+  bottom: 0;
+}
