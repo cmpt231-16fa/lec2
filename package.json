@@ -1,6 +1,6 @@
 {
-  "name": "reveal-skel",
-  "version": "0.3.0",
+  "name": "cmpt231-16fa/lec2",
+  "version": "1.0.0",
   "private": true,
   "devDependencies": {
     "bower": "^1.7.9",
@@ -21,11 +21,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:sermons/reveal-skel.git"
+    "url": "git@github.com:cmpt231-16fa/lec2.git"
   },
   "info": {
-    "title": "Reveal Skel",
-    "disp_url": "reveal-skel.seanho.com"
+    "title": "Lec2 CMPT231 16FA",
+    "disp_url": "cmpt231.seanho.com/lec2"
   },
   "git": {
     "name": "Sean Ho",

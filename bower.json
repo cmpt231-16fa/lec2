@@ -1,6 +1,6 @@
 {
-  "name": "reveal-skel",
-  "version": "0.3.0",
+  "name": "cmpt231-16fa/lec2",
+  "version": "1.0.0",
   "dependencies": {
     "reveal.js": "~3.3.0",
     "highlightjs": "~9.4.0"
