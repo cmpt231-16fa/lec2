@@ -105,6 +105,9 @@ def merge(A, p, q, r):
 TODO: diagram?
 
 ---
+## Outline
+
+---
 ## Maximum subarray
 + **Input**: array *A[1 .. n]* of numbers (could be negative)
 + **Output**: indices *(i,j)* to maximise *sum( A[i .. j] )*
@@ -152,5 +155,10 @@ def max_subarray(A, low, mid, high):
 + **Recurrence**: T(n) = *2T(n/2) + &Theta;(n)*
   + **Base** case: T(1) = O(1)
 + Same as merge sort: **solution** is T(n) = *&Theta;(n lg n)*
-+ Actually, *(#4.1-5)*, max subarray can be done in *&Theta;(n)*!
++ Actually *(#4.1-5)*, max subarray can be done in *&Theta;(n)*!
 
+---
+## Outline
+
+---
+## Matrix multiply
