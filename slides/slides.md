@@ -113,6 +113,7 @@ TODO: diagram?
 + **Exhaustive** check of all (*i*,*j*): \`Theta(n^2)\`
 
 ![Example of max subarray](static/img/Fig-4-1-max_subarray.png)
+<!-- .element: style="width: 90%" -->
 
 ---
 ## Max subarray: algorithm
