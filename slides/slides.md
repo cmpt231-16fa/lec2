@@ -15,23 +15,24 @@
 ---
 ## Divide and conquer
 + Insertion sort was **incremental**:
-  + At each step, *A[1 .. j-1]* is sorted, so insert *A[j]* so that
-    *A[1 .. j]* is sorted
+  + At each step, *A[1 .. j-1]* has been sorted, so
+  + Insert *A[j]* such that *A[1 .. j]* is now sorted
 + Divide and conquer **strategy**:
   + **Split** task up into smaller chunks
   + Small enough chunks can be solved **directly** (base case)
   + **Combine** results and return
 + Implement via **recursion** or **loops**
-  + Usually, recursion has excessive **overhead**
+  + Usually, recursion is **easier** to code but **slower** to run
 
 ---
 ## Merge sort
 <div class="imgbox"><div data-markdown>
 
 + **Split** array in half
-  + If only 1 element, we're done
+  + If only 1 elt, we're done
 + **Recurse** to sort each half
 + **Merge** sorted sub-arrays
+  + Need to do this efficiently
 
 </div><div data-markdown>
 
@@ -50,21 +51,17 @@ def merge_sort(A, p, r):
 TODO: diagram?
 
 ---
-## Linear-time merge
-+ How to do that **merge** step efficiently?
-+ A[p .. q] and A[q+1 .. r] are **sorted**, p &le; q &lt; r
-+ Temporary **copies** of each sub-array
-  + Append an "&infin;" **marker** item to end of each copy
-+ **Step** through both copies of sub-arrays:
-  + **Compare** item from each sub-array
-  + Copy **smaller** one into main array and
-    move pointer in that sub-array
+## Efficient merge in &Theta;(n)
++ Subarrays *A[p .. q]* and *A[q+1 .. r]* are **sorted**, *p* &le; *q* &lt; *r*
++ Make temporary **copies** of each sub-array
+  + Append an "*&infin;*" **marker** item to end of each copy
++ **Step** through the sub-arrays, using two indices *(i,j)*:
+  + Copy **smaller** element into main array
+    + and **advance** pointer in that sub-array
 + **Complexity**: *&Theta;(n)*
 
 *Main* array: `[ A, C, D, E, H, J, , , , , ]`
-
 *Left* subarray: `[ C, E, H, *K*, P, R ]`
-
 *Right* subarray: `[ A, D, J, *L*, N, T ]`
 
 ---
