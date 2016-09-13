@@ -5,12 +5,12 @@
 
 ---
 ## Outline for today
-+ **Divide and conquer** (ch4)
++ **Divide and conquer** *(ch4)*
   + Merge sort, recurrence relations
   + Maximum subarray
   + Matrix multiply, Strassen's method
   + Master method of solving recurrences
-+ **Randomised Algorithms** (ch5)
++ **Randomised Algorithms** *(ch5)*
 
 ---
 ## Divide and conquer
@@ -58,10 +58,12 @@ TODO: diagram?
 + **Step** through the sub-arrays, using two indices *(i,j)*:
   + Copy **smaller** element into main array
     + and **advance** pointer in that sub-array
-+ **Complexity**: *&Theta;(n)*
-+ *Main*: `[ A, C, D, E, H, J, , , , , ]`
-+ *Left*: `[ C, E, H, *K*, P, R ]`
-+ *Right*: `[ A, D, J, *L*, N, T ]`
+
+```
+Main : [ A, C, D, E, H, J,  ,  ,  ,  ,  ,   ]
+Left : [ C, E, H,    K, P, R ]
+Right: [ A, D, J,    L, N, T ]
+```
 
 ---
 ## Merge step: in pseudocode
@@ -83,6 +85,8 @@ def merge(A, p, q, r):
       A[k] = R[j]                               // copy from right
       j++
 ```
+
+**Complexity**: *&Theta;(n)*
 
 ---
 ## Complexity of merge sort
