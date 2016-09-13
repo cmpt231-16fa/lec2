@@ -61,8 +61,7 @@ TODO: diagram?
 
 ```
 Main : [ A, C, D, E, H, J,  ,  ,  ,  ,  ,   ]
-Left : [ C, E, H,    K, P, R ]
-Right: [ A, D, J,    L, N, T ]
+Copies: [ C, E, H,    K, P, R ]       [ A, D, J,    L, N, T ]
 ```
 
 ---
