@@ -59,10 +59,9 @@ TODO: diagram?
   + Copy **smaller** element into main array
     + and **advance** pointer in that sub-array
 + **Complexity**: *&Theta;(n)*
-
-*Main* array: `[ A, C, D, E, H, J, , , , , ]`
-*Left* subarray: `[ C, E, H, *K*, P, R ]`
-*Right* subarray: `[ A, D, J, *L*, N, T ]`
++ *Main*: `[ A, C, D, E, H, J, , , , , ]`
++ *Left*: `[ C, E, H, *K*, P, R ]`
++ *Right*: `[ A, D, J, *L*, N, T ]`
 
 ---
 ## Merge step: in pseudocode
@@ -73,7 +72,7 @@ def merge(A, p, q, r):
 
   for i in 1 .. n1: L[i] = A[ p+i-1 ]           // copy
   for j in 1 .. n2: R[j] = A[ q+j ]
-  (L[ n1+1 ], R[ n2+1 ]) = (&infin; &infin;)    // sentinel
+  (L[ n1+1 ], R[ n2+1 ]) = (inf; inf)           // sentinel
 
   (i, j) = (1, 1)
   for k in p .. r:
@@ -87,17 +86,16 @@ def merge(A, p, q, r):
 
 ---
 ## Complexity of merge sort
-+ **Recursive** function: use a **recurrence** relation
-  + **Base** case + **inductive** step
-+ **Base** case: if *n=1*, then T(n) = *&Theta;(1)*
-+ **Inductive** step: if *n>1*, then T(n) = *2T(n/2) + &Theta;(n)*
-  + **Sort** 2 sub-arrays of size *n/2*, then **merge**
++ **Recurrence** relation: **base** case + **inductive** step
+  + **Base** case: if *n=1*, then T(n) = *&Theta;(1)*
+  + **Inductive** step: if *n>1*, then T(n) = *2T(n/2) + &Theta;(n)*
+    + **Sort** 2 sub-arrays of size *n/2*, then **merge**
 + How to **solve** this recurrence?
   + Function **call diagram** looks like binary tree
   + Each **level** `L` has \`2^L\` calls, each doing \`2^-L\` work
     + Total work at each level is *&Theta;(n)*
-  + Total number of levels is `lg(n)`
-  + &rArr; total complexity is *&Theta;(n lg(n))*
+  + Total number of levels is *lg(n)*
+  + &rArr; Total complexity: *&Theta;(n lg(n))*
 
 >>>
 TODO: diagram?
@@ -109,7 +107,6 @@ TODO: diagram?
   + e.g., input daily change in **stock** price:
     + find optimal time to **buy** (i) and **sell** (j)
 + **Exhaustive** check of all (i,j): \`Theta(n^2)\`
-  + Can we do better by using **divide and conquer**?
 
 ![Example of max subarray](static/img/Fig-4-1-max_subarray.png)
 
@@ -119,7 +116,7 @@ TODO: diagram?
 + **Recursively** solve each half
   + (what's the **base** case?)
 + Find the max subarray which **spans** the midpoint
-  + Do this in &Theta;(n)
+  + Do this in *&Theta;(n)*
 + Choose **best** out of 3 options (left, right, span) and return
 
 ![Max subarray spanning midpoint](static/img/Fig-4-4-max_subarray.png)
