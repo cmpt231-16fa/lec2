@@ -52,7 +52,8 @@ TODO: diagram?
 
 ---
 ## Efficient merge in &Theta;(n)
-+ Subarrays *A[p .. q]* and *A[q+1 .. r]* are **sorted**, *p* &le; *q* &lt; *r*
++ Assume subarrays are **sorted**:
+  + *A[p .. q]* and *A[q+1 .. r]*, with  *p* &le; *q* &lt; *r*
 + Make temporary **copies** of each sub-array
   + Append an "*&infin;*" **marker** item to end of each copy
 + **Step** through the sub-arrays, using two indices *(i,j)*:
