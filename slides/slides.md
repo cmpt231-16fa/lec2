@@ -62,7 +62,7 @@ TODO: diagram?
 
 ```
 Main : [ A, C, D, E, H, J,  ,  ,  ,  ,  ,   ]
-Left: [ C, E, H, *K, P, R, inf ]   Right: [ A, D, J, *L, N, T, inf ]
+L: [ C, E, H, *K, P, R, inf ]  ||  R: [ A, D, J, *L, N, T, inf ]
 ```
 
 ---
@@ -78,7 +78,7 @@ def merge(A, p, q, r):
 
   (i, j) = (1, 1)
   for k in p .. r:
-    if L[i] &le; R[j]:                          // compare
+    if L[i] <= R[j]:                          // compare
       A[k] = L[i]                               // copy from left
       i++
     else:
@@ -91,8 +91,8 @@ def merge(A, p, q, r):
 ---
 ## Complexity of merge sort
 + **Recurrence** relation: **base** case + **inductive** step
-  + **Base** case: if *n=1*, then T(n) = *&Theta;(1)*
-  + **Inductive** step: if *n>1*, then T(n) = *2T(n/2) + &Theta;(n)*
+  + **Base** case: if *n = 1*, then T(n) = *&Theta;(1)*
+  + **Inductive** step: if *n > 1*, then T(n) = *2T(n/2) + &Theta;(n)*
     + **Sort** 2 sub-arrays of size *n/2*, then **merge**
 + How to **solve** this recurrence?
   + Function **call diagram** looks like binary tree
@@ -116,7 +116,7 @@ TODO: diagram?
 + **Exhaustive** check of all (*i*,*j*): \`Theta(n^2)\`
 
 ![Example of max subarray](static/img/Fig-4-1-max_subarray.png)
-<!-- .element: style="width: 90%" -->
+<!-- .element: style="width: 75%" -->
 
 ---
 ## Max subarray: algorithm
@@ -162,3 +162,73 @@ def max_subarray(A, low, mid, high):
 
 ---
 ## Matrix multiply
++ **Input**: two *n* x *n* matrices *A[i,j]* and *B[i,j]*
++ **Output**: *n* x *n* matrix *C* = *A \* B*:
+  \` C[i,j] = sum_(k=1)^n A[i,k] B[k,j] \`
+  \` [[C_11, C_12], [C_21, C_22]] =
+     [[A_11, A_12], [A_21, A_22]] * [[B_11, B_12], [B_21, B_22]] \`
++ **Simplest** method:
+
+```
+def mult(A, B, n):
+  for i in 1 .. n:
+    for j in 1 .. n:
+      for k in 1 .. n:
+        C[i, j] = A[i, k] * B[k, j]
+  return C
+```
+
++ **Complexity**?  Can we do **better**?
+
+---
+## Divide-and-conquer mat mul
++ **Split** matrices into **4** parts (assume *n* a power of 2)
++ **Recurse** *8* times to get products of sub-matrices
++ Add and **combine** info final result:
+  \` [[C_11, C_12], [C_21, C_22]] =
+     [[A_11, A_12], [A_21, A_22]] * [[B_11, B_12], [B_21, B_22]] \`
+  \` C_11 = A_11 * B_11 + A_12 * B_21 \`
+  \` C_12 = A_11 * B_12 + A_12 * B_22 \`, etc.
++ What's the **base case**?
++ How to **generalise** to *n* not a power of 2?
+
+---
+## Complexity of divide-and-conquer
++ **Split**: O(1) by using **indices** rather than copying matrices
++ **Recursion**: *8* calls, each of time *T(n/2)*
++ **Combine**: each entry in *C* needs one add: \`Theta(n^2)\`
++ So the **recurrence** is: \`T(n) = 8T(n/2) + Theta(n^2)\`
+  + Unfortunately, this resolves to \`Theta(n^3)\`
+  + **No better** than the simple solution
++ What gets us is the *8* **recursive** calls
+  + **Strassen**'s idea: spend \`o(n^2)\` work to save *1* call
+
+---
+## Strassen's matrix multiply
++ 10 **sums** of submatrices: \`S_1 = B_12 - B_22\`,
+  \`S_2 = A_11 + A_12\`, \`S_3 = A_21 + A_22\`, \`S_4 = B_21 - B_11\`,
+  \`S_5 = A_11 + A_22\`, \`S_6 = B_11 + B_22\`, \`S_7 = A_12 - A_22\`,
+  \`S_8 = B_21 + B_22\`, \`S_9 = A_11 - A_21\`, \`S_10 = B_11 + B_12\`.
++ 7 **recursive** calls: \`P_1 = A_11 * S_1\`,
+  \`P_2 = S_2 * B_22\`, \`P_3 = S_3 * B_11\`, \`P_4 = A_22 * S_4\`,
+  \`P_5 = S_5 * S_6 \`, \`P_6 = S_7 * S_8 \`, \`P_7 = S_9 * S_10\`.
++ 4 **results** via addition: \`C_11 = P_5 + P_4 - P_2 + P_6\`,
+  \`C_12 = P_1 + P_2\`, \`C_21 = P_3 + P_4\`, \`C_22 = P_5 + P_1 - P_3 - P_7\`.
+
+---
+## Complexity of Strassen's method
++ Even though more **sums** are done, still all \`Theta(n^2)\`
+  + Doesn't change total **asymptotic** complexity
+  + Might not be worth it for **small* *n*, though
++ **Recurrence**: \`T(n) = 7T(n/2) + Theta(n^2)\`
+  + Saved us *1* recursive call!
+  + **Solution**: \`T(n) = Theta(n^(text(lg) 7))\`
++ In **general**: when T(n) = *a T( n/b ) + &Theta;( f(n) )*
+  + If *f(n)* is **smaller** than \`O(n^(log_b(a)))\`
+    + **Leaves** dominate recursion tree
+    + **Solution** is T(n) = \`Theta(n^(log_b(a)))\`
+  + One case of the "**master theorem**"
+
+---
+## Outline
+
