@@ -62,7 +62,7 @@ TODO: diagram?
 
 ```
 Main : [ A, C, D, E, H, J,  ,  ,  ,  ,  ,   ]
-Left: [ C, E, H,    K, P, R ]      Right: [ A, D, J,    L, N, T ]
+Left: [ C, E, H, *K, P, R, inf ]   Right: [ A, D, J, *L, N, T, inf ]
 ```
 
 ---
