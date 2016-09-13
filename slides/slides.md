@@ -103,10 +103,10 @@ TODO: diagram?
 ---
 ## Maximum subarray
 + **Input**: array *A[1 .. n]* of numbers (could be negative)
-+ **Output**: indices *(i,j)* to maximise `sum( A[i .. j] )`
++ **Output**: indices *(i,j)* to maximise *sum( A[i .. j] )*
   + e.g., input daily change in **stock** price:
-    + find optimal time to **buy** (i) and **sell** (j)
-+ **Exhaustive** check of all (i,j): \`Theta(n^2)\`
+    + find optimal time to **buy** (*i*) and **sell** (*j*)
++ **Exhaustive** check of all (*i*,*j*): \`Theta(n^2)\`
 
 ![Example of max subarray](static/img/Fig-4-1-max_subarray.png)
 
@@ -117,17 +117,17 @@ TODO: diagram?
   + (what's the **base** case?)
 + Find the max subarray which **spans** the midpoint
   + Do this in *&Theta;(n)*
-+ Choose **best** out of 3 options (left, right, span) and return
++ Choose **best** out of 3 options (*left*, *right*, *span*) and return
 
 ![Max subarray spanning midpoint](static/img/Fig-4-4-max_subarray.png)
 
 ---
 ## Span midpoint
-+ How to find the maximum subarray which spans the midpoint?
-+ **Decrement** *i* down from the **midpoint** to the **low** end,
-  maximising `sum( A[i .. mid] )`
-+ **Increment** *j* up from `mid+1` to the **high** end,
-  maximising `sum( A[mid+1 .. j] )`
++ Find the maximum subarray that **spans** the midpoint
++ **Decrement** *i* down from the **midpoint** to the **low** end
+  + Maximise *sum( A[i .. mid] )*
++ **Increment** *j* up from `mid+1` to the **high** end
+  + Maximise *sum( A[mid+1 .. j] )*
 + Total time is only **linear** in n
 
 ![Max subarray spanning midpoint](static/img/Fig-4-4-max_subarray.png)
@@ -140,12 +140,12 @@ def max_subarray(A, low, mid, high):
   split_array()                         // O(1)
   max_subarray( left_half )             // T(n/2)
   max_subarray( right_half )            // T(n/2)
-  midpt_max_subarray()                  // &Theta;(n)
+  midpt_max_subarray()                  // Theta(n)
   return best_of_3()                    // O(1)
 ```
 
 + **Recurrence**: T(n) = *2T(n/2) + &Theta;(n)*
   + **Base** case: T(1) = O(1)
-+ Same as merge sort: solution is T(n) = *&Theta;(n lg n)*
++ Same as merge sort: **solution** is T(n) = *&Theta;(n lg n)*
 + Actually, *(#4.1-5)*, max subarray can be done in *&Theta;(n)*!
 
