@@ -105,6 +105,9 @@ def merge(A, p, q, r):
 TODO: diagram?
 
 ---
+## Recurrence tree
+
+---
 ## Outline
 
 ---
@@ -163,10 +166,10 @@ def max_subarray(A, low, mid, high):
 ---
 ## Matrix multiply
 + **Input**: two *n* x *n* matrices *A[i,j]* and *B[i,j]*
-+ **Output**: *n* x *n* matrix *C* = *A \* B*:
++ **Output**: *n* x *n* matrix *C* = *A* &lowast; *B*:
   \` C[i,j] = sum_(k=1)^n A[i,k] B[k,j] \`
   \` [[C_11, C_12], [C_21, C_22]] =
-     [[A_11, A_12], [A_21, A_22]] * [[B_11, B_12], [B_21, B_22]] \`
+     [[A_11, A_12], [A_21, A_22]] &lowast; [[B_11, B_12], [B_21, B_22]] \`
 + **Simplest** method:
 
 ```
@@ -186,9 +189,9 @@ def mult(A, B, n):
 + **Recurse** *8* times to get products of sub-matrices
 + Add and **combine** info final result:
   \` [[C_11, C_12], [C_21, C_22]] =
-     [[A_11, A_12], [A_21, A_22]] * [[B_11, B_12], [B_21, B_22]] \`
-  \` C_11 = A_11 * B_11 + A_12 * B_21 \`
-  \` C_12 = A_11 * B_12 + A_12 * B_22 \`, etc.
+     [[A_11, A_12], [A_21, A_22]] &lowast; [[B_11, B_12], [B_21, B_22]] \`
+  \` C_11 = A_11 &lowast; B_11 + A_12 &lowast; B_21 \`
+  \` C_12 = A_11 &lowast; B_12 + A_12 &lowast; B_22 \`, etc.
 + What's the **base case**?
 + How to **generalise** to *n* not a power of 2?
 
@@ -209,9 +212,9 @@ def mult(A, B, n):
   \`S_2 = A_11 + A_12\`, \`S_3 = A_21 + A_22\`, \`S_4 = B_21 - B_11\`,
   \`S_5 = A_11 + A_22\`, \`S_6 = B_11 + B_22\`, \`S_7 = A_12 - A_22\`,
   \`S_8 = B_21 + B_22\`, \`S_9 = A_11 - A_21\`, \`S_10 = B_11 + B_12\`.
-+ 7 **recursive** calls: \`P_1 = A_11 * S_1\`,
-  \`P_2 = S_2 * B_22\`, \`P_3 = S_3 * B_11\`, \`P_4 = A_22 * S_4\`,
-  \`P_5 = S_5 * S_6 \`, \`P_6 = S_7 * S_8 \`, \`P_7 = S_9 * S_10\`.
++ 7 **recursive** calls: \`P_1 = A_11 &lowast; S_1\`,
+  \`P_2 = S_2 &lowast; B_22\`, \`P_3 = S_3 &lowast; B_11\`, \`P_4 = A_22 &lowast; S_4\`,
+  \`P_5 = S_5 &lowast; S_6 \`, \`P_6 = S_7 &lowast; S_8 \`, \`P_7 = S_9 &lowast; S_10\`.
 + 4 **results** via addition: \`C_11 = P_5 + P_4 - P_2 + P_6\`,
   \`C_12 = P_1 + P_2\`, \`C_21 = P_3 + P_4\`, \`C_22 = P_5 + P_1 - P_3 - P_7\`.
 
@@ -227,7 +230,9 @@ def mult(A, B, n):
   + If *f(n)* is **smaller** than \`O(n^(log_b(a)))\`
     + **Leaves** dominate recursion tree
     + **Solution** is T(n) = \`Theta(n^(log_b(a)))\`
-  + One case of the "**master theorem**"
+
+---
+## Master theorem
 
 ---
 ## Outline
