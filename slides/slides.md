@@ -1,4 +1,4 @@
-<!-- .slide: data-background-image="http://sermons.seanho.com/img/bg/unsplash-NEgEJmN3JZo-boardwalk_grass.jpg" -->
+<!-- .slide: data-background-image="http:#sermons.seanho.com/img/bg/unsplash-NEgEJmN3JZo-boardwalk_grass.jpg" -->
 # CMPT231
 ## Lecture 2: ch4-5
 ### Divide and Conquer, Recurrences, Randomised Algorithms
@@ -71,21 +71,21 @@ L: [ C, E, H, *K, P, R, inf ]  ||  R: [ A, D, J, *L, N, T, inf ]
 ## Merge step: in pseudocode
 ```
 def merge(A, p, q, r):
-  ( n1, n2 ) = ( q-p+1, r-q )                   // lengths
+  ( n1, n2 ) = ( q-p+1, r-q )                   # lengths
   new arrays: L[ 1 .. n1+1 ], R[ 1 .. n2+1 ]
 
-  for i in 1 .. n1: L[ i ] = A[ p+i-1 ]         // copy
+  for i in 1 .. n1: L[ i ] = A[ p+i-1 ]         # copy
   for j in 1 .. n2: R[ j ] = A[ q+j ]
 
-  ( L[ n1+1 ], R[ n2+1 ] ) = ( inf, inf )       // sentinel
+  ( L[ n1+1 ], R[ n2+1 ] ) = ( inf, inf )       # sentinel
 
   ( i, j ) = ( 1, 1 )
   for k in p .. r:
-    if L[ i ] <= R[ j ]:                        // compare
-      A[ k ] = L[ i ]                           // copy from left
+    if L[ i ] <= R[ j ]:                        # compare
+      A[ k ] = L[ i ]                           # copy from left
       i++
     else:
-      A[ k ] = R[ j ]                           // copy from right
+      A[ k ] = R[ j ]                           # copy from right
       j++
 ```
 
@@ -164,24 +164,23 @@ BG: dominoes
   + T(n/2) &isin; &Theta;( *(n/2) lg(n/2)* )
   + i.e., &exist; *c5*, *c6*:
     \` c_5 (n/2) text(lg)(n/2) <= T(n/2) <= c_6 (n/2) text(lg)(n/2) \`
-+ \` => (c_5/2)(n text(lg) n - n text(lg) 2) <= T(n/2)
-  <=    (c_6/2)(n text(lg) n - n text(lg) 2) \`
-+ \` => (c_5/2)n text(lg) n - (c_5/2)n <= T(n/2)
-  <=    (c_6/2)n text(lg) n - (c_6/2)n \`
++ \` => (c_5 n/2)(text(lg) n - text(lg) 2) <= T(n/2)
+  <=    (c_6 n/2)(text(lg) n - text(lg) 2) \`
++ \` => (c_5/2)(n text(lg) n - n) <= T(n/2)
+  <=    (c_6/2)(n text(lg) n - n) \`
 
 ---
 ## Inductive proof, cont.
-+ **Substitute**: &exist; *c3, c4, c5, c6* such that:
++ **Substitute** for T(n/2): &exist; *c3, c4, c5, c6* such that:
 + \` 2T(n/2) + c_3 n <= T(n) <= 2T(n/2) + c_4 n \`
-+ \`   => 2(c_5/2)n text(lg) n - 2(c_5/2)n + c_3 n <= T(n/2) \`
-  + \` <= 2(c_6/2)n text(lg) n - 2(c_6/2)n + c_4 n \`
-+ \`   => c_5 n text(lg)n - (c_5 - c_3)n <= T(n) \`
-  + \` <= c_6 n text(lg)n - (c_6 - c_4)n \`
++ \`   => c_5(n text(lg)n - n) + c_3 n <= T(n) \`
+  + \` <= c_6(n text(lg)n - n) + c_4 n \`
++ \`   => c_5 n text(lg)n + (c_3 - c_5)n <= T(n) \`
+  + \` <= c_6 n text(lg)n + (c_4 - c_6)n \`
 + We can't **choose** the constants, so we don't know if
-  \`(c_5 - c_3)>0\` or if \`(c_6-c_4)<0\`,
+  \`(c_3 - c_5)>0\` or if \`(c_4-c_6)<0\`,
 + But we know that *n* &isin; *o(n lg n)*, so for big *n*,
   the *n lg n* terms **dominate** and we have T(n) &isin; *&Theta;(n lg n)*.
-  + We may need to choose (*c1*, *c2*) different from (*c5*, *c6*)
 
 ---
 ## Outline
@@ -224,11 +223,11 @@ BG: dominoes
 
 ```
 def max_subarray(A, low, mid, high):
-  split_array()                         // O(1)
-  max_subarray( left_half )             // T(n/2)
-  max_subarray( right_half )            // T(n/2)
-  midpt_max_subarray()                  // Theta(n)
-  return best_of_3()                    // O(1)
+  split_array()                         # O(1)
+  max_subarray( left_half )             # T(n/2)
+  max_subarray( right_half )            # T(n/2)
+  midpt_max_subarray()                  # Theta(n)
+  return best_of_3()                    # O(1)
 ```
 
 + **Recurrence**: T(n) = *2T(n/2) + &Theta;(n)*
