@@ -6,10 +6,11 @@
 ---
 ## Outline for today
 + **Divide and conquer** *(ch4)*
-  + Merge sort, recurrence relations
-  + Maximum subarray
-  + Matrix multiply, Strassen's method
-  + Master method of solving recurrences
+  + **Merge sort**, recurrence relations
+  + Proof by **induction**
+  + Maximum **subarray**
+  + Matrix multiply, **Strassen**'s method
+  + **Master method** of solving recurrences
 + **Randomised Algorithms** *(ch5)*
 
 ---
@@ -69,20 +70,21 @@ L: [ C, E, H, *K, P, R, inf ]  ||  R: [ A, D, J, *L, N, T, inf ]
 ## Merge step: in pseudocode
 ```
 def merge(A, p, q, r):
-  (n1, n2) = (q-p+1, r-q)                       // lengths
-  new arrays: L[ 1 .. n1+1 ], R[ 1 .. n2+ 1]
+  ( n1, n2 ) = ( q-p+1, r-q )                   // lengths
+  new arrays: L[ 1 .. n1+1 ], R[ 1 .. n2+1 ]
 
-  for i in 1 .. n1: L[i] = A[ p+i-1 ]           // copy
-  for j in 1 .. n2: R[j] = A[ q+j ]
-  (L[ n1+1 ], R[ n2+1 ]) = (inf; inf)           // sentinel
+  for i in 1 .. n1: L[ i ] = A[ p+i-1 ]         // copy
+  for j in 1 .. n2: R[ j ] = A[ q+j ]
 
-  (i, j) = (1, 1)
+  ( L[ n1+1 ], R[ n2+1 ] ) = ( inf, inf )       // sentinel
+
+  ( i, j ) = ( 1, 1 )
   for k in p .. r:
-    if L[i] <= R[j]:                          // compare
-      A[k] = L[i]                               // copy from left
+    if L[ i ] <= R[ j ]:                        // compare
+      A[ k ] = L[ i ]                           // copy from left
       i++
     else:
-      A[k] = R[j]                               // copy from right
+      A[ k ] = R[ j ]                           // copy from right
       j++
 ```
 
@@ -106,6 +108,82 @@ TODO: diagram?
 
 ---
 ## Recurrence tree
+
+---
+## Outline
+
+---
+## Mathematical induction
++ **Deduction**: general *principles* &rArr; specific *case*
++ **Induction**: representative *case* &rArr; general *rule*
++ Proof by induction needs two **axioms**:
+  + **Base case**: starting point, e.g., at *n = 1*
+  + **Inductive step**: assuming the rule holds at *n*,
+    prove it also holds at *n+1*
++ This proves the rule for **all** (positive) *n*
+
+>>>
+BG: dominoes
+
+---
+## Example of inductive proof
++ Recall **Gauss**' formula: \`sum_(j=1)^n j = (n(n+1))/2\`
++ We can **prove** it by induction:
++ Prove **base case** (*n = 1*): 1 = *(1)(1+1)/2*
++ Prove **inductive step**:
+  + **Assume**: \`sum_(j=1)^n j = (n(n+1))/2\`
+  + **Prove**: \`sum_(j=1)^(n+1) j = ((n+1)(n+2))/2\`
+
+---
+## Inductive step of Gauss' formula
++ \` sum\_(j=1)^(n+1) j = (sum_(j=1)^n j) + (n+1) \`
++ \` = (n(n+1))/2 + (n+1) \` (by inductive **assumption**)
++ \` = (n^2 + n)/2 + (n+1) \`
++ \` = (n^2 + n + 2n + 2)/2 \`
++ \` = (n^2 + 3n + 2)/2 \`
++ \` = ((n+1)(n+2))/2 \`
++ By **induction**, formula works for **all** *n*
+
+---
+## Inductive proof for merge sort
++ Apply same method of proof to **recurrences**:
++ **Merge sort**: T(n) = *2T(n/2) + &Theta;(n)*, with T(1) &isin; *&Theta;(1)*
++ If we have a **guess**, we can then **prove** it correct:
+  + Guess: merge sort T(n) &isin; *&Theta;(n lg n)*
++ Prove **base case**: T(1) &isin; *&Theta;(1 lg 1)* = &Theta;(1)
++ Prove **inductive step**:
+  + **Assume**: T(m) &isin; *&Theta;(m lg m)*, for all *m &lt; n*
+  + **Prove**: T(n) &isin; *&Theta;(n lg n)*
+  + i.e., for big *n*, **find** *c1, c2* so that
+  + \` c_1 n text(lg)n <= T(n) <= c_2 n text(lg)n \`
+
+---
+## Inductive step for merge sort
++ From the **recurrence**: T(n) = *2T(n/2) + &Theta;(n)*
+  + i.e., &exist; *c3*, *c4*:
+    \` 2T(n/2) + c_3 n <= T(n) <= 2T(n/2) + c_4 n \`
++ But *n/2* &lt; *n*, so we can apply the inductive assumption:
+  + T(n/2) &isin; &Theta;( *(n/2) lg(n/2)* )
+  + i.e., &exist; *c5*, *c6*:
+    \` c_5 (n/2) text(lg)(n/2) <= T(n/2) <= c_6 (n/2) text(lg)(n/2) \`
++ \` => (c_5/2)(n text(lg) n - n text(lg) 2) <= T(n/2)
+  <=    (c_6/2)(n text(lg) n - n text(lg) 2) \`
++ \` => (c_5/2)n text(lg) n - (c_5/2)n <= T(n/2)
+  <=    (c_6/2)n text(lg) n - (c_6/2)n \`
+
+---
+## Inductive proof, cont.
++ **Substitute**: &exist; *c3, c4, c5, c6* such that:
+  \` 2T(n/2) + c_3 n <= T(n) <= 2T(n/2) + c_4 n \`
++ \` => 2(c_5/2)n text(lg) n - 2(c_5/2)n + c_3 n <= T(n/2)
+  <=    2(c_6/2)n text(lg) n - 2(c_6/2)n + c_4 n \`
++ \` => c_5 n text(lg)n - (c_5 - c_3)n <= T(n)
+  <=    c_6 n text(lg)n - (c_6 - c_4)n \`
++ We can't **choose** the constants, so we don't know if
+  \`(c_5 - c_3)>0\` or if \`(c_6-c_4)<0\`,
++ But we know that *n* &isin; *o(n lg n)*, so for big *n*,
+  the *n lg n* terms **dominate** and we have T(n) &isin; *&Theta;(n lg n)*.
+  + We may need to choose (*c1*, *c2*) different from (*c5*, *c6*)
 
 ---
 ## Outline
@@ -222,94 +300,14 @@ def mult(A, B, n):
 ## Complexity of Strassen's method
 + Even though more **sums** are done, still all \`Theta(n^2)\`
   + Doesn't change total **asymptotic** complexity
-  + Might not be worth it for **small* *n*, though
+  + Might not be worth it for **small** *n*, though
 + **Recurrence**: \`T(n) = 7T(n/2) + Theta(n^2)\`
   + Saved us *1* recursive call!
   + **Solution**: \`T(n) = Theta(n^(text(lg) 7))\`
-+ In **general**: when T(n) = *a T( n/b ) + &Theta;( f(n) )*
-  + If *f(n)* is **smaller** than \`O(n^(log_b(a)))\`
-    + **Leaves** dominate recursion tree
-    + **Solution** is T(n) = \`Theta(n^(log_b(a)))\`
-
----
-## Master theorem
-
----
-## Outline
-
----
-## Mathematical induction
-+ **Deduction**: general *principles* &rArr; specific *case*
-+ **Induction**: representative *case* &rArr; general *rule*
-+ Proof by induction needs two **axioms**:
-  + **Base case**: starting point, e.g., at *n = 1*
-  + **Inductive step**: assuming the rule holds at *n*,
-    prove it also holds at *n+1*
-+ From these two, we can prove that the rule holds
-  for **all** (positive) *n*
-
->>>
-BG: dominoes
-
----
-## Example of inductive proof
-+ Recall **Gauss**' formula: \`sum_(j=1)^n j = n(n+1)/2\`
-+ We can **prove** it by induction:
-+ Prove **base case** (*n = 1*): 1 = *(1)(1+1)/2*
-+ Prove **inductive step**:
-  + **Assume**: \`sum_(j=1)^n j = n(n+1)/2\`
-  + **Prove**: \`sum_(j=1)^(n+1) j = (n+1)(n+2)/2\`
-
----
-## Inductive step of Gauss' formula
-+ \` sum_(j=1)^(n+1) j = (sum_(j=1)^n j) + (n+1) \`
-+ \` = n(n+1)/2 + (n+1) \` (by inductive assumption)
-+ \` = (n^2 + n)/2 + (n+1) \`
-+ \` = (n^2 + n + 2n + 2)/2 \`
-+ \` = (n^2 + 3n + 2)/2 \`
-+ \` = (n+1)(n+2)/2 \`
-+ This proves the **inductive step**,
-  + which in turn proves the formula for all *n*
-
----
-## Inductive proof for merge sort
-+ Apply same method of proof to **recurrences**:
-+ **Merge sort**: T(n) = *2T(n/2) + &Theta;(n)*, with T(1) &isin; *&Theta;(1)*
-+ If we have a **guess**, we can then **prove** it correct:
-  + Guess: merge sort T(n) &isin; *&Theta;(n lg n)*
-+ Prove **base case**: T(1) &isin; *&Theta;(1 lg 1)* = &Theta;(1)
-+ Prove **inductive step**:
-  + **Assume**: T(m) &isin; *&Theta;(m lg m)*, for all *m &lt; n*
-  + **Prove**: T(n) &isin; *&Theta;(n lg n)*
-  + i.e., for **big** *n*, there exist *c1, c2* so that
-  + c1 *n lg n* &le; *T(n)* &le; c2 *n lg n*
-
----
-## Inductive step for merge sort
-+ From the **recurrence**: T(n) = *2T(n/2) + &Theta;(n)*
-  + i.e., &exist; c1, c2:
-    *2T(n/2)* + **c1** *n* &le; *T(n)* &le; *2T(n/2)* + **c2** *n*
-+ But since *n/2* lt; *n*, so by inductive assumption,
-  + T(n/2) &isin; &Theta;( *(n/2) lg(n/2)* )
-  + i.e., &exist; c3, c4:
-    \` c_3( (n/2) text(lg)(n/2) ) <= T(n/2) <= c_4( (n/2) text(lg)(n/2) ) \`
-+ \` => (c_3/2)(n text(lg) n - n text(lg) 2) <= T(n/2)
-  <=    (c_4/2)(n text(lg) n - n text(lg) 2) \`
-+ \` => (c_3/2)n text(lg) n - (c_1 text(lg)2/2)n <= T(n/2)
-  <=    (c_4/2)n text(lg) n - (c_2 text(lg)2/2)n \`
-
----
-## Inductive proof, cont.
-+ Now substitute: &exist; *c1, c2, c3, c4* such that:
-+ \` 2T(n/2) + c_1 n <= T(n) <= 2T(n/2) + c_2 n \`
-+ \` => 2(c_3/2)n text(lg)n - 2(c_1 text(lg)2/2)n + c_1 n <= T(n)
-  <=    2(c_4/2)n text(lg)n - 2(c_2 text(lg)2/2)n + c_2 n \`
-+ \` => c_3 n text(lg)n - (c_1 text(lg)2 + c_1)n <= T(n)
-  <=    c_4 n text(lg)n - (c_2 text(lg)2 + c_2)n \`
-+ \` => c_3 n text(lg)n <= T(n) <= c_4 n text(lg)n - 2c_2 n \`
-  + (since *c1 lg2 + c1* &gt; 0)
-+ \` => c_3 n text(lg)n <= T(n) <= c_5 n text(lg)n \`
-  + (for some *c5*) (choose a larger *n0* so that *n lg n* &gt; *2 c2 n*)
++ An example of the **master method** for recurrences of the form
+  + T(n) = *a T( n/b ) + &Theta;( f(n) )*
+  + **Compare** *f(n)* with \`n^(log_b a)\`
+  + Is more work done in **leaves** of tree or **roots**?
 
 ---
 ## Outline
@@ -318,11 +316,12 @@ BG: dominoes
 ## Master method for recurrences
 + If T(n) has the **form**: *a T(n/b) + f(n)*, with *a, b* &gt; 0
   + **Merge sort**: a = *2*, b = *2*, f(n) = *&Theta;(n)*
-+ Case 1: if \` f(n) in Theta(n^(log_b a)) \`
++ Case *1*: if \` f(n) in Theta(n^(log_b a)) \`
   + Leaves/roots **balanced**: \` T(n) = Theta(n^(log_b a) log n) \`
-+ Case 2: if \` f(n) in O(n^(log_b a)) \`
++ Case *2*: if \` f(n) in O(n^(log_b a)) \`
   + **Leaves** dominate: \` T(n) = Theta(n^(log_b a)) \`
-+ Case 3: if \` f(n) in Omega(n^(log_b a + epsilon)), epsilon > 0 \`
++ Case *3*: if \` f(n) in Omega(n^(log_b a + epsilon)) \`,
+  for some *&epsilon;* > 0,
   **and** if \` a f(n/b) <= c f(n) \` for some *c* &lt; 1 and big *n*
   + **Roots** dominate: \` T(n) = Theta(f(n)) \`
   + Polynomials \` f(n) = n^k \` satisfy the **regularity** condition
@@ -344,25 +343,26 @@ BG: dominoes
 ---
 ## Gaps in master method
 + **Doesn't** cover all recurrences of form *a T(n/b) + f(n)*!
-  + e.g., T(n) = *2T(n/2) + n lg n*
-  + **Case 1**: \` n text(lg)n notin Theta(n^(log_2 2)) = Theta(n) \`
-  + **Case 2**: \` n text(lg)n notin O(n^(1-epsilon)) \`
-    + for **any** *&epsilon;* > 0
-  + **Case 3**: \` n text(lg)n notin Omega(n^(1+epsilon)) \`
-    + because \` text(lg)n notin Omega(n^epsilon) \`
-    + for **any** *&epsilon;* > 0
+  + e.g., T(n) = *2T(n/2) + n log n*
+  + **Case 1**: \` n log n notin Theta(n^(log_2 2)) = Theta(n) \`
+  + **Case 2**: \` n log n notin O(n^(1-epsilon)) \`,
+    for **any** *&epsilon;* > 0
+  + **Case 3**: \` n log n notin Omega(n^(1+epsilon)) \`,
+    for **any** *&epsilon;* > 0
+    + because \` log n notin Omega(n^epsilon) \`
+      &forall; *&epsilon;* > 0
 + Need to use **other** methods to solve
-  + And some recurrences we simply **don't know** how to solve
+  + Some recurrences are just **intractable**
 
 ---
 ## Polylog extension
 + **Generalisation** of master method
-+ Applies for \` f(n) in Theta(n^(log_b a) text(lg)^k(n)) \`
-  + (*lg* to *k* power, not iterated log)
-+ **Solution**: \` T(n) = Theta(n^(log_b a) text(lg)^(k+1)(n)) \`
++ Applies for \` f(n) in Theta(n^(log_b(a)) log^k(n)) \`
+  + (*log* to *k* power, not iterated log)
++ **Solution**: \` T(n) = Theta(n^(log_b(a)) log^(k+1)(n)) \`
   + **Regular** master method is special case, *k = 0*
-+ Previous **example**: T(n) = *2T(n/2) + n lg n*
-  + **Solution**: \` T(n) = Theta(n text(lg)^2 n) \`
++ Previous **example**: T(n) = *2T(n/2) + n log n*
+  + **Solution**: \` T(n) = Theta(n log^2 n) \`
 
 ---
 ## Outline
