@@ -233,4 +233,134 @@ def mult(A, B, n):
 ## Outline
 
 ---
+## Mathematical induction
++ **Deduction**: general *principles* &rArr; specific *case*
++ **Induction**: representative *case* &rArr; general *rule*
++ Proof by induction needs two **axioms**:
+  + **Base case**: starting point, e.g., at *n = 1*
+  + **Inductive step**: assuming the rule holds at *n*,
+    prove it also holds at *n+1*
++ From these two, we can prove that the rule holds
+  for **all** (positive) *n*
+
+>>>
+BG: dominoes
+
+---
+## Example of inductive proof
++ Recall **Gauss**' formula: \`sum_(j=1)^n j = n(n+1)/2\`
++ We can **prove** it by induction:
++ Prove **base case** (*n = 1*): 1 = *(1)(1+1)/2*
++ Prove **inductive step**:
+  + **Assume**: \`sum_(j=1)^n j = n(n+1)/2\`
+  + **Prove**: \`sum_(j=1)^(n+1) j = (n+1)(n+2)/2\`
+
+---
+## Inductive step of Gauss' formula
++ \` sum_(j=1)^(n+1) j = (sum_(j=1)^n j) + (n+1) \`
++ \` = n(n+1)/2 + (n+1) \` (by inductive assumption)
++ \` = (n^2 + n)/2 + (n+1) \`
++ \` = (n^2 + n + 2n + 2)/2 \`
++ \` = (n^2 + 3n + 2)/2 \`
++ \` = (n+1)(n+2)/2 \`
++ This proves the **inductive step**,
+  + which in turn proves the formula for all *n*
+
+---
+## Inductive proof for merge sort
++ Apply same method of proof to **recurrences**:
++ **Merge sort**: T(n) = *2T(n/2) + &Theta;(n)*, with T(1) &isin; *&Theta;(1)*
++ If we have a **guess**, we can then **prove** it correct:
+  + Guess: merge sort T(n) &isin; *&Theta;(n lg n)*
++ Prove **base case**: T(1) &isin; *&Theta;(1 lg 1)* = &Theta;(1)
++ Prove **inductive step**:
+  + **Assume**: T(m) &isin; *&Theta;(m lg m)*, for all *m &lt; n*
+  + **Prove**: T(n) &isin; *&Theta;(n lg n)*
+  + i.e., for **big** *n*, there exist *c1, c2* so that
+  + c1 *n lg n* &le; *T(n)* &le; c2 *n lg n*
+
+---
+## Inductive step for merge sort
++ From the **recurrence**: T(n) = *2T(n/2) + &Theta;(n)*
+  + i.e., &exist; c1, c2:
+    *2T(n/2)* + **c1** *n* &le; *T(n)* &le; *2T(n/2)* + **c2** *n*
++ But since *n/2* lt; *n*, so by inductive assumption,
+  + T(n/2) &isin; &Theta;( *(n/2) lg(n/2)* )
+  + i.e., &exist; c3, c4:
+    \` c_3( (n/2) text(lg)(n/2) ) <= T(n/2) <= c_4( (n/2) text(lg)(n/2) ) \`
++ \` => (c_3/2)(n text(lg) n - n text(lg) 2) <= T(n/2)
+  <=    (c_4/2)(n text(lg) n - n text(lg) 2) \`
++ \` => (c_3/2)n text(lg) n - (c_1 text(lg)2/2)n <= T(n/2)
+  <=    (c_4/2)n text(lg) n - (c_2 text(lg)2/2)n \`
+
+---
+## Inductive proof, cont.
++ Now substitute: &exist; *c1, c2, c3, c4* such that:
++ \` 2T(n/2) + c_1 n <= T(n) <= 2T(n/2) + c_2 n \`
++ \` => 2(c_3/2)n text(lg)n - 2(c_1 text(lg)2/2)n + c_1 n <= T(n)
+  <=    2(c_4/2)n text(lg)n - 2(c_2 text(lg)2/2)n + c_2 n \`
++ \` => c_3 n text(lg)n - (c_1 text(lg)2 + c_1)n <= T(n)
+  <=    c_4 n text(lg)n - (c_2 text(lg)2 + c_2)n \`
++ \` => c_3 n text(lg)n <= T(n) <= c_4 n text(lg)n - 2c_2 n \`
+  + (since *c1 lg2 + c1* &gt; 0)
++ \` => c_3 n text(lg)n <= T(n) <= c_5 n text(lg)n \`
+  + (for some *c5*) (choose a larger *n0* so that *n lg n* &gt; *2 c2 n*)
+
+---
+## Outline
+
+---
+## Master method for recurrences
++ If T(n) has the **form**: *a T(n/b) + f(n)*, with *a, b* &gt; 0
+  + **Merge sort**: a = *2*, b = *2*, f(n) = *&Theta;(n)*
++ Case 1: if \` f(n) in Theta(n^(log_b a)) \`
+  + Leaves/roots **balanced**: \` T(n) = Theta(n^(log_b a) log n) \`
++ Case 2: if \` f(n) in O(n^(log_b a)) \`
+  + **Leaves** dominate: \` T(n) = Theta(n^(log_b a)) \`
++ Case 3: if \` f(n) in Omega(n^(log_b a + epsilon)), epsilon > 0 \`
+  **and** if \` a f(n/b) <= c f(n) \` for some *c* &lt; 1 and big *n*
+  + **Roots** dominate: \` T(n) = Theta(f(n)) \`
+  + Polynomials \` f(n) = n^k \` satisfy the **regularity** condition
+
+---
+## Examples of master method
++ **Merge sort**: T(n) = *2T(n/2) + &Theta;(n)*:
+  + a = *2*, b = *2*, f(n) = *&Theta;(n)*
+  + \` f(n) = Theta(n) = Theta(n^(log_2 2)) \`
+  + So leaves and roots are **balanced** (case 1)
+  + **Solution** is \` T(n) = Theta(n^(log_2 2) log n) = Theta(n log n) \`
++ **Strassen** matrix mult: T(n) = *7T(n/2) + &Theta;(n^2)*
+  + a = *7*, b = *2*, f(n) = *&Theta;(n^2)*
+  + \` f(n) = Theta(n^2) = O(n^(log_2 7 - epsilon)) \`
+    + *lg 7* &simeq; 2.8, so, e.g., *&epsilon;* = 0.4 works
+  + So **leaves** dominate (case 2)
+  + **Solution** is \` T(n) = Theta(n^(log_2 7)) ~~ Theta(n^2.8) \`
+
+---
+## Gaps in master method
++ **Doesn't** cover all recurrences of form *a T(n/b) + f(n)*!
+  + e.g., T(n) = *2T(n/2) + n lg n*
+  + **Case 1**: \` n text(lg)n notin Theta(n^(log_2 2)) = Theta(n) \`
+  + **Case 2**: \` n text(lg)n notin O(n^(1-epsilon)) \`
+    + for **any** *&epsilon;* > 0
+  + **Case 3**: \` n text(lg)n notin Omega(n^(1+epsilon)) \`
+    + because \` text(lg)n notin Omega(n^epsilon) \`
+    + for **any** *&epsilon;* > 0
++ Need to use **other** methods to solve
+  + And some recurrences we simply **don't know** how to solve
+
+---
+## Polylog extension
++ **Generalisation** of master method
++ Applies for \` f(n) in Theta(n^(log_b a) text(lg)^k(n)) \`
+  + (*lg* to *k* power, not iterated log)
++ **Solution**: \` T(n) = Theta(n^(log_b a) text(lg)^(k+1)(n)) \`
+  + **Regular** master method is special case, *k = 0*
++ Previous **example**: T(n) = *2T(n/2) + n lg n*
+  + **Solution**: \` T(n) = Theta(n text(lg)^2 n) \`
+
+---
+## Outline
+
+---
 ## Randomised algorithms
