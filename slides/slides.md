@@ -60,6 +60,7 @@ TODO: diagram?
 + **Step** through the sub-arrays, using two indices *(i,j)*:
   + Copy **smaller** element into main array
     + and **advance** pointer in that sub-array
++ **Complexity**: *&Theta;(n)*
 
 ```
 Main : [ A, C, D, E, H, J,  ,  ,  ,  ,  ,   ]
@@ -87,8 +88,6 @@ def merge(A, p, q, r):
       A[ k ] = R[ j ]                           // copy from right
       j++
 ```
-
-**Complexity**: *&Theta;(n)*
 
 ---
 ## Complexity of merge sort
@@ -142,7 +141,6 @@ BG: dominoes
 + \` = (n^2 + n + 2n + 2)/2 \`
 + \` = (n^2 + 3n + 2)/2 \`
 + \` = ((n+1)(n+2))/2 \`
-+ By **induction**, formula works for **all** *n*
 
 ---
 ## Inductive proof for merge sort
@@ -174,11 +172,11 @@ BG: dominoes
 ---
 ## Inductive proof, cont.
 + **Substitute**: &exist; *c3, c4, c5, c6* such that:
-  \` 2T(n/2) + c_3 n <= T(n) <= 2T(n/2) + c_4 n \`
-+ \` => 2(c_5/2)n text(lg) n - 2(c_5/2)n + c_3 n <= T(n/2)
-  <=    2(c_6/2)n text(lg) n - 2(c_6/2)n + c_4 n \`
-+ \` => c_5 n text(lg)n - (c_5 - c_3)n <= T(n)
-  <=    c_6 n text(lg)n - (c_6 - c_4)n \`
++ \` 2T(n/2) + c_3 n <= T(n) <= 2T(n/2) + c_4 n \`
++ \`   => 2(c_5/2)n text(lg) n - 2(c_5/2)n + c_3 n <= T(n/2) \`
+  + \` <= 2(c_6/2)n text(lg) n - 2(c_6/2)n + c_4 n \`
++ \`   => c_5 n text(lg)n - (c_5 - c_3)n <= T(n) \`
+  + \` <= c_6 n text(lg)n - (c_6 - c_4)n \`
 + We can't **choose** the constants, so we don't know if
   \`(c_5 - c_3)>0\` or if \`(c_6-c_4)<0\`,
 + But we know that *n* &isin; *o(n lg n)*, so for big *n*,
@@ -327,18 +325,21 @@ def mult(A, B, n):
   + Polynomials \` f(n) = n^k \` satisfy the **regularity** condition
 
 ---
-## Examples of master method
-+ **Merge sort**: T(n) = *2T(n/2) + &Theta;(n)*:
+## Master method: merge sort
++ **Recurrence**: T(n) = *2T(n/2) + &Theta;(n)*:
   + a = *2*, b = *2*, f(n) = *&Theta;(n)*
-  + \` f(n) = Theta(n) = Theta(n^(log_2 2)) \`
++ \` f(n) = Theta(n) = Theta(n^(log_2 2)) \`
   + So leaves and roots are **balanced** (case 1)
-  + **Solution** is \` T(n) = Theta(n^(log_2 2) log n) = Theta(n log n) \`
-+ **Strassen** matrix mult: T(n) = *7T(n/2) + &Theta;(n^2)*
++ **Solution** is \` T(n) = Theta(n^(log_2 2) log n) = Theta(n log n) \`
+
+---
+## Master method: Strassen
++ **Recurrence**: T(n) = *7T(n/2) + &Theta;(n^2)*
   + a = *7*, b = *2*, f(n) = *&Theta;(n^2)*
-  + \` f(n) = Theta(n^2) = O(n^(log_2 7 - epsilon)) \`
-    + *lg 7* &simeq; 2.8, so, e.g., *&epsilon;* = 0.4 works
++ \` f(n) = Theta(n^2) = O(n^(log_2 7 - epsilon)) \`
+  + *lg 7* &simeq; 2.8, so, e.g., *&epsilon;* = 0.4 works
   + So **leaves** dominate (case 2)
-  + **Solution** is \` T(n) = Theta(n^(log_2 7)) ~~ Theta(n^2.8) \`
++ **Solution** is \` T(n) = Theta(n^(log_2 7)) ~~ Theta(n^2.8) \`
 
 ---
 ## Gaps in master method
