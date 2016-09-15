@@ -174,9 +174,9 @@ BG: dominoes
 + **Substitute** for T(n/2): &exist; *c3, c4, c5, c6* such that:
 + \` 2T(n/2) + c_3 n <= T(n) <= 2T(n/2) + c_4 n \`
 + \`   => c_5(n text(lg)n - n) + c_3 n <= T(n) \`
-  + \` <= c_6(n text(lg)n - n) + c_4 n \`
+  \` <= c_6(n text(lg)n - n) + c_4 n \`
 + \`   => c_5 n text(lg)n + (c_3 - c_5)n <= T(n) \`
-  + \` <= c_6 n text(lg)n + (c_4 - c_6)n \`
+  \` <= c_6 n text(lg)n + (c_4 - c_6)n \`
 + We can't **choose** the constants, so we don't know if
   \`(c_3 - c_5)>0\` or if \`(c_4-c_6)<0\`,
 + But we know that *n* &isin; *o(n lg n)*, so for big *n*,
@@ -241,9 +241,9 @@ def max_subarray(A, low, mid, high):
 ---
 ## Matrix multiply
 + **Input**: two *n* x *n* matrices *A[i,j]* and *B[i,j]*
-+ **Output**: *n* x *n* matrix *C* = *A* &lowast; *B*:
++ **Output**: *C* = *A* &lowast; *B*, where
   \` C[i,j] = sum_(k=1)^n A[i,k] B[k,j] \`
-  \` [[C_11, C_12], [C_21, C_22]] =
++ e.g., \` [[C_11, C_12], [C_21, C_22]] =
      [[A_11, A_12], [A_21, A_22]] &lowast; [[B_11, B_12], [B_21, B_22]] \`
 + **Simplest** method:
 
@@ -256,7 +256,7 @@ def mult(A, B, n):
   return C
 ```
 
-+ **Complexity**?  Can we do **better**?
+**Complexity**?  Can we do **better**?
 
 ---
 ## Divide-and-conquer mat mul
@@ -279,7 +279,8 @@ def mult(A, B, n):
   + Unfortunately, this resolves to \`Theta(n^3)\`
   + **No better** than the simple solution
 + What gets us is the *8* **recursive** calls
-  + **Strassen**'s idea: spend \`o(n^2)\` work to save *1* call
+  + **Strassen**'s idea: do more **additions**
+    (only \`Theta(n^2)\` work) to save *1* call
 
 ---
 ## Strassen's matrix multiply
@@ -301,8 +302,8 @@ def mult(A, B, n):
 + **Recurrence**: \`T(n) = 7T(n/2) + Theta(n^2)\`
   + Saved us *1* recursive call!
   + **Solution**: \`T(n) = Theta(n^(text(lg) 7))\`
-+ An example of the **master method** for recurrences of the form
-  + T(n) = *a T( n/b ) + &Theta;( f(n) )*
++ This is an example of **master method**
+  + For recurrences of **form** T(n) = *a T( n/b ) + &Theta;( f(n) )*
   + **Compare** *f(n)* with \`n^(log_b a)\`
   + Is more work done in **leaves** of tree or **roots**?
 
