@@ -140,7 +140,7 @@ BG: dominoes
 + \` = (n^2 + n)/2 + (n+1) \`
 + \` = (n^2 + n + 2n + 2)/2 \`
 + \` = (n^2 + 3n + 2)/2 \`
-+ \` = ((n+1)(n+2))/2 \`
++ \` = ((n+1)(n+2))/2 \`, **QED** for the inductive step
 
 ---
 ## Inductive proof for merge sort
