@@ -1,4 +1,4 @@
-<!-- .slide: data-background-image="http:#sermons.seanho.com/img/bg/unsplash-NEgEJmN3JZo-boardwalk_grass.jpg" -->
+<!-- .slide: data-background-image="http://sermons.seanho.com/img/bg/unsplash-NEgEJmN3JZo-boardwalk_grass.jpg" -->
 # CMPT231
 ## Lecture 2: ch4-5
 ### Divide and Conquer, Recurrences, Randomised Algorithms
