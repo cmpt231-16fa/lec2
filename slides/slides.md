@@ -102,11 +102,11 @@ def merge(A, p, q, r):
   + Total number of levels is *lg(n)*
   + &rArr; Total complexity: *&Theta;(n lg(n))*
 
->>>
-TODO: diagram?
-
 ---
 ## Recurrence tree
+
+>>>
+TODO: diagram
 
 ---
 ## Outline
@@ -369,4 +369,19 @@ def mult(A, B, n):
 ## Outline
 
 ---
-## Randomised algorithms
+## Probabilistic analysis
++ Running time of **insertion sort** depended on input
+  + Best-case vs worst-case vs **average**-case
++ **Random variable** X: can take a value within a **domain** &Omega;
+  + &Omega;: `[0,1]`, \`bbb R\` = (-&infin;, &infin;), \`bbb R^n\`,
+    `(A, A-, B+, ...)`, `{blue, red, black}`, etc.
++ **Distribution** P(X): which values are more likely
+  + **uniform**: all values equally likely
+  + **Normal** (Gaussian) "bell curve" N(&mu;, &sigma)
++ **Expected value** E(X): weighted average
+  + \` E(X) = int_(X in Omega) P(X) \`
+
+---
+## Example: hiring problem
++ Input: ordered list of *n* candidates
+  + cost per interview: \`c_i\`.  cost per hire: \`c_h > c_i\`
