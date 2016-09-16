@@ -372,16 +372,68 @@ def mult(A, B, n):
 ## Probabilistic analysis
 + Running time of **insertion sort** depended on input
   + Best-case vs worst-case vs **average**-case
-+ **Random variable** X: can take a value within a **domain** &Omega;
-  + &Omega;: `[0,1]`, \`bbb R\` = (-&infin;, &infin;), \`bbb R^n\`,
++ **Random variable** *X*: can take a value within a **domain** *&Omega*;
+  + *&Omega;* could be `[0,1]`, \`bbb R\` = (-&infin;, &infin;), \`bbb R^n\`,
     `(A, A-, B+, ...)`, `{blue, red, black}`, etc.
-+ **Distribution** P(X): which values are more likely
++ **Distribution** *P(X)*: which values are more likely
   + **uniform**: all values equally likely
-  + **Normal** (Gaussian) "bell curve" N(&mu;, &sigma)
-+ **Expected value** E(X): weighted average
-  + \` E(X) = int_(X in Omega) P(X) \`
+  + **Normal** (Gaussian) "bell curve" *N(&mu;, &sigma;)*
++ **Expected value** *E(X)*: weighted average
+  + \` E(X) = int_(X in Omega) P(X) = sum_(X in Omega) P(X) \`
 
 ---
 ## Example: hiring problem
-+ Input: ordered list of *n* candidates
-  + cost per interview: \`c_i\`.  cost per hire: \`c_h > c_i\`
++ **Input**: list of candidates with *suitability* \`{s_i}_(i=1)^k\`
+  + cost per *interview*: \`c_i\`.  cost per *hire*: \`c_h > c_i\`
++ **Output**: list of hiring *decisions* \`{X_i} in {0,1}^n\`
+  + **Constraint**: at any point, *best* candidate so far is hired
+  + **Goal**: minimise total *cost* of interviews + hires
++ Total **cost** is: \`c_i n + c_h sum_(i=1)^n X_i\`
+  + Interview cost is **fixed**, so focus on hiring cost
++ **Worst** case: every new candidate is hired: \`X_i = 1 forall i\`
+  + (What kind of *suitabilities* \`{s_i}\` would cause this?)
+  + Total **cost** is \`c_i n + c_h n\`
+
+---
+## Analysis of hiring problem
++ **Assume** order of candidates is *random*
+  + i.e., each of the *n!* possible **permutations** is equally likely
++ Probability \`P(X_i)\` that candidate *i* is **hired**:
+  + \`s_i\` needs to be max of \`{s_k}_(k=1)^i\`
+  + if order is **random**, this means \`P(X_i) = 1/i\`
++ Then the **expected hiring cost** is
+  \` E[ c_h sum_(i=1)^n X_i ] = c_h sum_(i=1)^n E[X_i] \` (by **linearity**)
++ \` = c_h sum_(i=1)^n P(X_i)\` (since \`X_i\` is an **indicator**)
++ \` = c_h sum_(i=1)^n 1/i\` (since **order** is random)
++ \` = c_h (ln n + O(1))\` (solution to **harmonic series**)
+  + Much better than **worst-case**: \`c_h n\`
+
+---
+## Randomised algorithms
++ Above analysis assumed input order was **random**
+  + But we **can't** always assume that!
++ So **inject** randomness into the problem:
+  + **Shuffle** input before running algorithm
++ Use a **pseudo-random** number generator (PRNG)
+  + Typically, returns a **float** in range `[0,1)`
+  + Sequence is reproducible by setting **seed**
++ Or **hardware** RNG module (on motherboard, USB, etc.)
+  + shot noise, Zener diode noise, beam splitters, etc.
+
+---
+## Fisher-Yates shuffle
++ Idea by **Fisher + Yates** (1938)
+  + Implementation via swaps by **Durstenfeld** (1964)
++ Randomly **permute** input *A[]* in-place, in *O(n)* time
+
+```
+def shuffle(A, n):
+  for i in 1 to n:
+    swap( A[ i ], A[ random( i+1, n ) ] )
+```
+
++ Uses **PRNG** `random(a,b)` to get random int between *a* and *b*
++ Prove **correctness** via loop invariant:
+  + After *i*-th iteration, each possible permutation of length *i*
+    is in the subarray *A[ 1 .. i ]* with probability *(n-i)!/n!*
+
