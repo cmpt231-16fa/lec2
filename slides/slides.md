@@ -6,12 +6,13 @@
 ---
 ## Outline for today
 + **Divide and conquer** *(ch4)*
-  + **Merge sort**, recurrence relations
+  + **Merge sort**, recursion tree
   + Proof by **induction**
   + Maximum **subarray**
   + Matrix multiply, **Strassen**'s method
   + **Master method** of solving recurrences
-+ **Randomised Algorithms** *(ch5)*
++ **Probabilistic Analysis** *(ch5)*
+  + **Hiring** problem, randomised algo
 
 ---
 ## Divide and conquer
@@ -94,16 +95,19 @@ def merge(A, p, q, r):
 + **Recurrence** relation: **base** case + **inductive** step
   + **Base** case: if *n = 1*, then T(n) = *&Theta;(1)*
   + **Inductive** step: if *n > 1*, then T(n) = *2T(n/2) + &Theta;(n)*
-    + **Sort** 2 sub-arrays of size *n/2*, then **merge**
+    + **Sort** 2 halves of size *n/2*, then **merge** in *&Theta;(n)*
 + How to **solve** this recurrence?
   + Function **call diagram** looks like binary tree
-  + Each **level** `L` has \`2^L\` calls, each doing \`2^-L\` work
-    + Total work at each level is *&Theta;(n)*
-  + Total number of levels is *lg(n)*
-  + &rArr; Total complexity: *&Theta;(n lg(n))*
+  + Each **level** `L` has \`2^L\` recursive calls
+  + Each call performs \`2^-L\` work in the merge step
 
 ---
 ## Recurrence tree
++ Total work at each level is *&Theta;(n)*
+  + Total number of levels is *lg(n)*
+  + &rArr; Total complexity: *&Theta;(n lg(n))*
++ This is **not** a formal proof!
+  + A **guess** that we can prove by **induction**
 
 >>>
 TODO: diagram
@@ -265,8 +269,8 @@ def mult(A, B, n):
 + Add and **combine** info final result:
   \` [[C_11, C_12], [C_21, C_22]] =
      [[A_11, A_12], [A_21, A_22]] &lowast; [[B_11, B_12], [B_21, B_22]] \`
-  \` C_11 = A_11 &lowast; B_11 + A_12 &lowast; B_21 \`
-  \` C_12 = A_11 &lowast; B_12 + A_12 &lowast; B_22 \`, etc.
+  + \` C_11 = A_11 &lowast; B_11 + A_12 &lowast; B_21 \`
+  + \` C_12 = A_11 &lowast; B_12 + A_12 &lowast; B_22 \`, ...
 + What's the **base case**?
 + How to **generalise** to *n* not a power of 2?
 
@@ -279,8 +283,8 @@ def mult(A, B, n):
   + Unfortunately, this resolves to \`Theta(n^3)\`
   + **No better** than the simple solution
 + What gets us is the *8* **recursive** calls
-  + **Strassen**'s idea: do more **additions**
-    (only \`Theta(n^2)\` work) to save *1* call
+  + **Strassen**'s idea: spend more **additions**
+    (only \`Theta(n^2)\` work) to save *1* recursive call
 
 ---
 ## Strassen's matrix multiply
@@ -372,23 +376,23 @@ def mult(A, B, n):
 ## Probabilistic analysis
 + Running time of **insertion sort** depended on input
   + Best-case vs worst-case vs **average**-case
-+ **Random variable** *X*: can take a value within a **domain** *&Omega*;
-  + *&Omega;* could be `[0,1]`, \`bbb R\` = (-&infin;, &infin;), \`bbb R^n\`,
++ **Random variable** *X*: can take a value within a **domain**
+  + domain *&Omega;* could be `[0,1]`, \`bbb R\` = (-&infin;, &infin;), \`bbb R^n\`,
     `(A, A-, B+, ...)`, `{blue, red, black}`, etc.
-+ **Distribution** *P(X)*: which values are more likely
++ **Distribution** *P(X)*: says which values are more likely
   + **uniform**: all values equally likely
   + **Normal** (Gaussian) "bell curve" *N(&mu;, &sigma;)*
 + **Expected value** *E(X)*: weighted average
-  + \` E(X) = int_(X in Omega) P(X) = sum_(X in Omega) P(X) \`
+  + \` E(X) = int\_(X in Omega) P(X) = sum_(X in Omega) P(X) \`
 
 ---
 ## Example: hiring problem
-+ **Input**: list of candidates with *suitability* \`{s_i}_(i=1)^k\`
++ **Input**: list of candidates with *suitability* \`{s\_i}_(i=1)^k\`
   + cost per *interview*: \`c_i\`.  cost per *hire*: \`c_h > c_i\`
 + **Output**: list of hiring *decisions* \`{X_i} in {0,1}^n\`
   + **Constraint**: at any point, *best* candidate so far is hired
   + **Goal**: minimise total *cost* of interviews + hires
-+ Total **cost** is: \`c_i n + c_h sum_(i=1)^n X_i\`
++ Total **cost** is: \`c\_i n + c\_h sum\_(i=1)^n X_i\`
   + Interview cost is **fixed**, so focus on hiring cost
 + **Worst** case: every new candidate is hired: \`X_i = 1 forall i\`
   + (What kind of *suitabilities* \`{s_i}\` would cause this?)
@@ -397,14 +401,14 @@ def mult(A, B, n):
 ---
 ## Analysis of hiring problem
 + **Assume** order of candidates is *random*
-  + i.e., each of the *n!* possible **permutations** is equally likely
+  + each of *n!* possible **permutations** is equally likely
 + Probability \`P(X_i)\` that candidate *i* is **hired**:
-  + \`s_i\` needs to be max of \`{s_k}_(k=1)^i\`
+  + \`s\_i\` needs to be max of \`{s\_k}_(k=1)^i\`
   + if order is **random**, this means \`P(X_i) = 1/i\`
-+ Then the **expected hiring cost** is
-  \` E[ c_h sum_(i=1)^n X_i ] = c_h sum_(i=1)^n E[X_i] \` (by **linearity**)
-+ \` = c_h sum_(i=1)^n P(X_i)\` (since \`X_i\` is an **indicator**)
-+ \` = c_h sum_(i=1)^n 1/i\` (since **order** is random)
++ **Expected hiring cost** is
+  \` E[ c\_h sum\_(i=1)^n X\_i ] = c\_h sum\_(i=1)^n E[X\_i] \` (by **linearity**)
++ \` = c\_h sum\_(i=1)^n P(X\_i)\` (since \`X_i\` is an **indicator**)
++ \` = c\_h sum\_(i=1)^n 1/i\` (since **order** is random)
 + \` = c_h (ln n + O(1))\` (solution to **harmonic series**)
   + Much better than **worst-case**: \`c_h n\`
 
@@ -414,7 +418,7 @@ def mult(A, B, n):
   + But we **can't** always assume that!
 + So **inject** randomness into the problem:
   + **Shuffle** input before running algorithm
-+ Use a **pseudo-random** number generator (PRNG)
++ Use a **pseudo-random** number generator *(PRNG)*
   + Typically, returns a **float** in range `[0,1)`
   + Sequence is reproducible by setting **seed**
 + Or **hardware** RNG module (on motherboard, USB, etc.)
@@ -432,7 +436,7 @@ def shuffle(A, n):
     swap( A[ i ], A[ random( i+1, n ) ] )
 ```
 
-+ Uses **PRNG** `random(a,b)` to get random int between *a* and *b*
++ Use **PRNG** `random(a,b)`: int between *a* and *b*
 + Prove **correctness** via loop invariant:
   + After *i*-th iteration, each possible permutation of length *i*
     is in the subarray *A[ 1 .. i ]* with probability *(n-i)!/n!*
