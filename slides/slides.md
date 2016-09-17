@@ -12,7 +12,8 @@
   + Matrix multiply, **Strassen**'s method
   + **Master method** of solving recurrences
 + **Probabilistic Analysis** *(ch5)*
-  + **Hiring** problem, randomised algo
+  + **Hiring** problem and analysis
+  + **Randomised** algorithms and PRNGs
 
 ---
 ## Divide and conquer
@@ -77,7 +78,6 @@ def merge(A, p, q, r):
 
   for i in 1 .. n1: L[ i ] = A[ p+i-1 ]         # copy
   for j in 1 .. n2: R[ j ] = A[ q+j ]
-
   ( L[ n1+1 ], R[ n2+1 ] ) = ( inf, inf )       # sentinel
 
   ( i, j ) = ( 1, 1 )
@@ -122,7 +122,8 @@ TODO: diagram
 + Proof by induction needs two **axioms**:
   + **Base case**: starting point, e.g., at *n = 1*
   + **Inductive step**: assuming the rule holds at *n*,
-    prove it also holds at *n+1*
+    + **prove** it also holds at *n+1*
+    + (equivalently, assume true &forall; *m* &lt; *n*, and prove it for *n*)
 + This proves the rule for **all** (positive) *n*
 
 >>>
@@ -140,18 +141,17 @@ BG: dominoes
 ---
 ## Inductive step of Gauss' formula
 + \` sum\_(j=1)^(n+1) j = (sum_(j=1)^n j) + (n+1) \`
-+ \` = (n(n+1))/2 + (n+1) \` (by inductive **assumption**)
++ \` = (n(n+1))/2 + (n+1) \` (by **inductive hypothesis**)
 + \` = (n^2 + n)/2 + (n+1) \`
 + \` = (n^2 + n + 2n + 2)/2 \`
 + \` = (n^2 + 3n + 2)/2 \`
-+ \` = ((n+1)(n+2))/2 \`, **QED** for the inductive step
++ \` = ((n+1)(n+2))/2 \`, **proving** the inductive step
 
 ---
 ## Inductive proof for merge sort
 + Apply same method of proof to **recurrences**:
-+ **Merge sort**: T(n) = *2T(n/2) + &Theta;(n)*, with T(1) &isin; *&Theta;(1)*
-+ If we have a **guess**, we can then **prove** it correct:
-  + Guess: merge sort T(n) &isin; *&Theta;(n lg n)*
++ **Merge sort**: T(n) = *2T(n/2) + &Theta;(n)*, T(1) &isin; *&Theta;(1)*
++ **Guess** (from recursion tree): T(n) &isin; *&Theta;(n lg n)*
 + Prove **base case**: T(1) &isin; *&Theta;(1 lg 1)* = &Theta;(1)
 + Prove **inductive step**:
   + **Assume**: T(m) &isin; *&Theta;(m lg m)*, for all *m &lt; n*
@@ -164,7 +164,7 @@ BG: dominoes
 + From the **recurrence**: T(n) = *2T(n/2) + &Theta;(n)*
   + i.e., &exist; *c3*, *c4*:
     \` 2T(n/2) + c_3 n <= T(n) <= 2T(n/2) + c_4 n \`
-+ But *n/2* &lt; *n*, so we can apply the inductive assumption:
++ But *n/2* &lt; *n*, so we can apply the **inductive hypothesis**:
   + T(n/2) &isin; &Theta;( *(n/2) lg(n/2)* )
   + i.e., &exist; *c5*, *c6*:
     \` c_5 (n/2) text(lg)(n/2) <= T(n/2) <= c_6 (n/2) text(lg)(n/2) \`
@@ -175,14 +175,14 @@ BG: dominoes
 
 ---
 ## Inductive proof, cont.
-+ **Substitute** for T(n/2): &exist; *c3, c4, c5, c6* such that:
++ **Substitute** into recurrence for T(n): &exist; *c3, c4, c5, c6*:
 + \` 2T(n/2) + c_3 n <= T(n) <= 2T(n/2) + c_4 n \`
 + \`   => c_5(n text(lg)n - n) + c_3 n <= T(n) \`
   \` <= c_6(n text(lg)n - n) + c_4 n \`
 + \`   => c_5 n text(lg)n + (c_3 - c_5)n <= T(n) \`
   \` <= c_6 n text(lg)n + (c_4 - c_6)n \`
-+ We can't **choose** the constants, so we don't know if
-  \`(c_3 - c_5)>0\` or if \`(c_4-c_6)<0\`,
++ We can't **choose** the constants, so we don't know that
+  \`(c_3 - c_5)>0\` and \`(c_4-c_6)<0\`,
 + But we know that *n* &isin; *o(n lg n)*, so for big *n*,
   the *n lg n* terms **dominate** and we have T(n) &isin; *&Theta;(n lg n)*.
 
@@ -283,8 +283,8 @@ def mult(A, B, n):
   + Unfortunately, this resolves to \`Theta(n^3)\`
   + **No better** than the simple solution
 + What gets us is the *8* **recursive** calls
-  + **Strassen**'s idea: spend more **additions**
-    (only \`Theta(n^2)\` work) to save *1* recursive call
+  + **Strassen**'s idea: save *1* recursive call
+  + by spending more on **sums** (which are only \`Theta(n^2)\`)
 
 ---
 ## Strassen's matrix multiply
@@ -306,7 +306,7 @@ def mult(A, B, n):
 + **Recurrence**: \`T(n) = 7T(n/2) + Theta(n^2)\`
   + Saved us *1* recursive call!
   + **Solution**: \`T(n) = Theta(n^(text(lg) 7))\`
-+ This is an example of **master method**
++ This is an example of the **master method**
   + For recurrences of **form** T(n) = *a T( n/b ) + &Theta;( f(n) )*
   + **Compare** *f(n)* with \`n^(log_b a)\`
   + Is more work done in **leaves** of tree or **roots**?
@@ -376,11 +376,11 @@ def mult(A, B, n):
 ## Probabilistic analysis
 + Running time of **insertion sort** depended on input
   + Best-case vs worst-case vs **average**-case
-+ **Random variable** *X*: can take a value within a **domain**
-  + domain *&Omega;* could be `[0,1]`, \`bbb R\` = (-&infin;, &infin;), \`bbb R^n\`,
++ **Random variable** *X*: takes values within a domain
+  + **Domain** *&Omega;* could be `[0,1]`, \`bbb R\` = (-&infin;, &infin;), \`bbb R^n\`,
     `(A, A-, B+, ...)`, `{blue, red, black}`, etc.
 + **Distribution** *P(X)*: says which values are more likely
-  + **uniform**: all values equally likely
+  + **Uniform**: all values equally likely
   + **Normal** (Gaussian) "bell curve" *N(&mu;, &sigma;)*
 + **Expected value** *E(X)*: weighted average
   + \` E(X) = int\_(X in Omega) P(X) = sum_(X in Omega) P(X) \`
@@ -393,7 +393,7 @@ def mult(A, B, n):
   + **Constraint**: at any point, *best* candidate so far is hired
   + **Goal**: minimise total *cost* of interviews + hires
 + Total **cost** is: \`c\_i n + c\_h sum\_(i=1)^n X_i\`
-  + Interview cost is **fixed**, so focus on hiring cost
+  + *Interview* cost is **fixed**, so focus on *hiring* cost
 + **Worst** case: every new candidate is hired: \`X_i = 1 forall i\`
   + (What kind of *suitabilities* \`{s_i}\` would cause this?)
   + Total **cost** is \`c_i n + c_h n\`
@@ -402,15 +402,20 @@ def mult(A, B, n):
 ## Analysis of hiring problem
 + **Assume** order of candidates is *random*
   + each of *n!* possible **permutations** is equally likely
-+ Probability \`P(X_i)\` that candidate *i* is **hired**:
-  + \`s\_i\` needs to be max of \`{s\_k}_(k=1)^i\`
-  + if order is **random**, this means \`P(X_i) = 1/i\`
-+ **Expected hiring cost** is
-  \` E[ c\_h sum\_(i=1)^n X\_i ] = c\_h sum\_(i=1)^n E[X\_i] \` (by **linearity**)
++ For each candidate *i*, find probability of being **hired**:
+  + Most **suitable** candidate seen so far
+  + \`s\_i\` needs to be **max** of \`{s\_k}_(k=1)^i\`
+  + if order is **random**, likelihood is *1/i*
+  + So \`P(X_i) = 1/i\`
++ Now we can derive the **expected hiring cost**
+
+---
+## Expected hiring cost
++ \` E[ c\_h sum\_(i=1)^n X\_i ] = c\_h sum\_(i=1)^n E[X\_i] \` (by **linearity** of E)
 + \` = c\_h sum\_(i=1)^n P(X\_i)\` (since \`X_i\` is an **indicator**)
-+ \` = c\_h sum\_(i=1)^n 1/i\` (since **order** is random)
++ \` = c\_h sum\_(i=1)^n 1/i\` (random **order**, see prev slide)
 + \` = c_h (ln n + O(1))\` (solution to **harmonic series**)
-  + Much better than **worst-case**: \`c_h n\`
++ &rArr; much better than **worst-case**: \`c_h n\`
 
 ---
 ## Randomised algorithms
@@ -437,7 +442,7 @@ def shuffle(A, n):
 ```
 
 + Use **PRNG** `random(a,b)`: int between *a* and *b*
-+ Prove **correctness** via loop invariant:
++ **Correctness** can be proved via *loop invariant*:
   + After *i*-th iteration, each possible permutation of length *i*
     is in the subarray *A[ 1 .. i ]* with probability *(n-i)!/n!*
 
