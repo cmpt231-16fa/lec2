@@ -1,9 +1,10 @@
-<!-- .slide: data-background-image="http://sermons.seanho.com/img/bg/unsplash-NEgEJmN3JZo-boardwalk_grass.jpg" -->
+<!-- .slide: data-background-image="http://sermons.seanho.com/img/bg/unsplash-e6XsI7qqvAA-forest_sunbeam.jpg" -->
 # CMPT231
 ## Lecture 2: ch4-5
 ### Divide and Conquer, Recurrences, Randomised Algorithms
 
 ---
+<!-- .slide: data-background-image="http://sermons.seanho.com/img/bg/unsplash-e6XsI7qqvAA-forest_sunbeam.jpg" -->
 ## Outline for today
 + **Divide and conquer** *(ch4)*
   + **Merge sort**, recursion tree
@@ -113,6 +114,7 @@ def merge(A, p, q, r):
 TODO: diagram
 
 ---
+<!-- .slide: data-background-image="http://sermons.seanho.com/img/bg/unsplash-e6XsI7qqvAA-forest_sunbeam.jpg" -->
 ## Outline for today
 + Divide and conquer *(ch4)*
   + Merge sort, recursion tree
@@ -196,6 +198,7 @@ BG: dominoes
   the *n lg n* terms **dominate** and we have T(n) &isin; *&Theta;(n lg n)*.
 
 ---
+<!-- .slide: data-background-image="http://sermons.seanho.com/img/bg/unsplash-e6XsI7qqvAA-forest_sunbeam.jpg" -->
 ## Outline for today
 + Divide and conquer *(ch4)*
   + Merge sort, recursion tree
@@ -265,6 +268,7 @@ def max_subarray(A, low, mid, high):
   + By **induction**, any program can be shortened to a **single line**, which **doesn't work**.
 
 ---
+<!-- .slide: data-background-image="http://sermons.seanho.com/img/bg/unsplash-e6XsI7qqvAA-forest_sunbeam.jpg" -->
 ## Outline for today
 + Divide and conquer *(ch4)*
   + Merge sort, recursion tree
@@ -346,6 +350,7 @@ def mult(A, B, n):
   + Is more work done in **leaves** of tree or **roots**?
 
 ---
+<!-- .slide: data-background-image="http://sermons.seanho.com/img/bg/unsplash-e6XsI7qqvAA-forest_sunbeam.jpg" -->
 ## Outline for today
 + Divide and conquer *(ch4)*
   + Merge sort, recursion tree
@@ -413,6 +418,7 @@ def mult(A, B, n):
   + **Solution**: \` T(n) = Theta(n log^2 n) \`
 
 ---
+<!-- .slide: data-background-image="http://sermons.seanho.com/img/bg/unsplash-e6XsI7qqvAA-forest_sunbeam.jpg" -->
 ## Outline for today
 + Divide and conquer *(ch4)*
   + Merge sort, recursion tree
@@ -499,6 +505,7 @@ def shuffle(A, n):
     is in the subarray *A[ 1 .. i ]* with probability *(n-i)!/n!*
 
 ---
+<!-- .slide: data-background-image="http://sermons.seanho.com/img/bg/unsplash-e6XsI7qqvAA-forest_sunbeam.jpg" -->
 ## Outline for today
 + **Divide and conquer** *(ch4)*
   + **Merge sort**, recursion tree
@@ -509,3 +516,6 @@ def shuffle(A, n):
 + **Probabilistic Analysis** *(ch5)*
   + **Hiring** problem and analysis
   + **Randomised** algorithms and PRNGs
+
+---
+<!-- .slide: data-background-image="http://sermons.seanho.com/img/bg/unsplash-e6XsI7qqvAA-forest_sunbeam.jpg" class="empty" -->
