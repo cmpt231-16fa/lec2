@@ -240,6 +240,13 @@ def max_subarray(A, low, mid, high):
 + Actually *(#4.1-5)*, max subarray can be done in *&Theta;(n)*!
 
 ---
+## Programming Joke
+
++ There's always a way to **shorten** a program by one line.
+  + But, there's also always one more **bug**.
+  + By **induction**, any program can be shortened to a **single line**, which **doesn't work**.
+
+---
 ## Outline
 
 ---
