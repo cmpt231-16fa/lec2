@@ -134,7 +134,7 @@ TODO: diagram
   + **Base case**: starting point, e.g., at *n = 1*
   + **Inductive step**: assuming the rule holds at *n*,
     + **prove** it also holds at *n+1*
-    + (equivalently, assume true &forall; *m* &lt; *n*, and prove it for *n*)
+    + equivalently, assume true &forall; *m* &lt; *n*, and prove for *n*
 + This proves the rule for **all** (positive) *n*
 
 >>>
@@ -265,7 +265,7 @@ def max_subarray(A, low, mid, high):
 
 + There's always a way to **shorten** a program by one line.
   + But, there's also always one more **bug**.
-  + By **induction**, any program can be shortened to a **single line**, which **doesn't work**.
+  + &rArr; By **induction**, any program can be shortened to a **single line**, which **doesn't work**.
 
 ---
 <!-- .slide: data-background-image="http://sermons.seanho.com/img/bg/unsplash-e6XsI7qqvAA-forest_sunbeam.jpg" -->
@@ -472,7 +472,7 @@ def mult(A, B, n):
 + \` E[ c\_h sum\_(i=1)^n X\_i ] = c\_h sum\_(i=1)^n E[X\_i] \` (by **linearity** of E)
 + \` = c\_h sum\_(i=1)^n P(X\_i)\` (since \`X_i\` is an **indicator**)
 + \` = c\_h sum\_(i=1)^n 1/i\` (random **order**, see prev slide)
-+ \` = c_h (ln n + O(1))\` (solution to **harmonic series**)
++ \` = c_h (ln n + O(1))\` (**harmonic series**)
 + &rArr; much better than **worst-case**: \`c_h n\`
 
 ---
