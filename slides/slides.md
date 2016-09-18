@@ -113,7 +113,16 @@ def merge(A, p, q, r):
 TODO: diagram
 
 ---
-## Outline
+## Outline for today
++ Divide and conquer *(ch4)*
+  + Merge sort, recursion tree
+  + **Proof by induction**
+  + Maximum subarray
+  + Matrix multiply, Strassen's method
+  + Master method of solving recurrences
++ Probabilistic Analysis *(ch5)*
+  + Hiring problem and analysis
+  + Randomised algorithms and PRNGs
 
 ---
 ## Mathematical induction
@@ -187,7 +196,16 @@ BG: dominoes
   the *n lg n* terms **dominate** and we have T(n) &isin; *&Theta;(n lg n)*.
 
 ---
-## Outline
+## Outline for today
++ Divide and conquer *(ch4)*
+  + Merge sort, recursion tree
+  + Proof by induction
+  + **Maximum subarray**
+  + Matrix multiply, Strassen's method
+  + Master method of solving recurrences
++ Probabilistic Analysis *(ch5)*
+  + Hiring problem and analysis
+  + Randomised algorithms and PRNGs
 
 ---
 ## Maximum subarray
@@ -247,7 +265,16 @@ def max_subarray(A, low, mid, high):
   + By **induction**, any program can be shortened to a **single line**, which **doesn't work**.
 
 ---
-## Outline
+## Outline for today
++ Divide and conquer *(ch4)*
+  + Merge sort, recursion tree
+  + Proof by induction
+  + Maximum subarray
+  + **Matrix multiply, Strassen's method**
+  + Master method of solving recurrences
++ Probabilistic Analysis *(ch5)*
+  + Hiring problem and analysis
+  + Randomised algorithms and PRNGs
 
 ---
 ## Matrix multiply
@@ -319,7 +346,16 @@ def mult(A, B, n):
   + Is more work done in **leaves** of tree or **roots**?
 
 ---
-## Outline
+## Outline for today
++ Divide and conquer *(ch4)*
+  + Merge sort, recursion tree
+  + Proof by induction
+  + Maximum subarray
+  + Matrix multiply, Strassen's method
+  + **Master method of solving recurrences**
++ Probabilistic Analysis *(ch5)*
+  + Hiring problem and analysis
+  + Randomised algorithms and PRNGs
 
 ---
 ## Master method for recurrences
@@ -377,7 +413,16 @@ def mult(A, B, n):
   + **Solution**: \` T(n) = Theta(n log^2 n) \`
 
 ---
-## Outline
+## Outline for today
++ Divide and conquer *(ch4)*
+  + Merge sort, recursion tree
+  + Proof by induction
+  + Maximum subarray
+  + Matrix multiply, Strassen's method
+  + Master method of solving recurrences
++ **Probabilistic Analysis** *(ch5)*
+  + **Hiring problem and analysis**
+  + **Randomised algorithms and PRNGs**
 
 ---
 ## Probabilistic analysis
@@ -453,3 +498,14 @@ def shuffle(A, n):
   + After *i*-th iteration, each possible permutation of length *i*
     is in the subarray *A[ 1 .. i ]* with probability *(n-i)!/n!*
 
+---
+## Outline for today
++ **Divide and conquer** *(ch4)*
+  + **Merge sort**, recursion tree
+  + Proof by **induction**
+  + Maximum **subarray**
+  + Matrix multiply, **Strassen**'s method
+  + **Master method** of solving recurrences
++ **Probabilistic Analysis** *(ch5)*
+  + **Hiring** problem and analysis
+  + **Randomised** algorithms and PRNGs
