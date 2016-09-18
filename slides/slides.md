@@ -448,7 +448,7 @@ def mult(A, B, n):
   + *Interview* cost is **fixed**, so focus on *hiring* cost
 + **Worst** case: every new candidate is hired: \`X_i = 1 forall i\`
   + (What kind of *suitabilities* \`{s_i}\` would cause this?)
-  + Total **cost** is \`c_i n + c_h n\`
+  + **Hiring cost** is \`c_h n\`
 
 ---
 ## Analysis of hiring problem
