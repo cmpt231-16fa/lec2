@@ -294,7 +294,7 @@ def mult(A, B, n):
   for i in 1 .. n:
     for j in 1 .. n:
       for k in 1 .. n:
-        C[i, j] = A[i, k] * B[k, j]
+        C[i, j] += A[i, k] * B[k, j]
   return C
 ```
 
@@ -368,10 +368,10 @@ def mult(A, B, n):
   + **Merge sort**: a = *2*, b = *2*, f(n) = *&Theta;(n)*
 + Case *1*: if \` f(n) in Theta(n^(log_b a)) \`
   + Leaves/roots **balanced**: \` T(n) = Theta(n^(log_b a) log n) \`
-+ Case *2*: if \` f(n) in O(n^(log_b a)) \`
++ Case *2*: if \` f(n) in O(n^(log_b a - epsilon)) \`
+  for some *&epsilon;* > 0
   + **Leaves** dominate: \` T(n) = Theta(n^(log_b a)) \`
 + Case *3*: if \` f(n) in Omega(n^(log_b a + epsilon)) \`,
-  for some *&epsilon;* > 0,
   **and** if \` a f(n/b) <= c f(n) \` for some *c* &lt; 1 and big *n*
   + **Roots** dominate: \` T(n) = Theta(f(n)) \`
   + Polynomials \` f(n) = n^k \` satisfy the **regularity** condition
@@ -445,7 +445,7 @@ def mult(A, B, n):
 
 ---
 ## Example: hiring problem
-+ **Input**: list of candidates with *suitability* \`{s\_i}_(i=1)^k\`
++ **Input**: list of candidates with *suitability* \`{s\_i}_(i=1)^n\`
   + cost per *interview*: \`c_i\`.  cost per *hire*: \`c_h > c_i\`
 + **Output**: list of hiring *decisions* \`{X_i} in {0,1}^n\`
   + **Constraint**: at any point, *best* candidate so far is hired
