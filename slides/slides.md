@@ -4,6 +4,30 @@
 ### Divide and Conquer, Recurrences, Randomised Algorithms
 
 ---
+## James 1:2-4 (NASB)
+Consider it all joy, my brethren, <br/>
+when you encounter various trials, <br/>
+knowing that the testing of your faith produces endurance.
+
+And let endurance have its perfect result, <br/>
+so that you may be perfect and complete, <br/>
+lacking in nothing.
+
+---
+## James 1:5-8 (NASB)
+But if any of you lacks wisdom, let him ask of God, <br/>
+who gives to all generously and without reproach, <br/>
+and it will be given to him.
+
+But he must ask in faith without any doubting, <br/>
+for the one who doubts is like the surf of the sea, <br/>
+driven and tossed by the wind.
+
+For that man ought not to expect <br/>
+that he will receive anything from the Lord, <br/>
+being a double-minded man, unstable in all his ways.
+
+---
 <!-- .slide: data-background-image="http://sermons.seanho.com/img/bg/unsplash-e6XsI7qqvAA-forest_sunbeam.jpg" -->
 ## Outline for today
 + **Divide and conquer** *(ch4)*
