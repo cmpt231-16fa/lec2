@@ -184,29 +184,29 @@ BG: dominoes
 
 ---
 ## Inductive proof for merge sort
-+ Apply same method of proof to **recurrences**:
-+ **Merge sort**: T(n) = *2T(n/2) + &Theta;(n)*, T(1) &isin; *&Theta;(1)*
++ **Recurrence**: T(n) = *2T(n/2) + &Theta;(n)*, T(1) &isin; *&Theta;(1)*
 + **Guess** (from recursion tree): T(n) &isin; *&Theta;(n lg n)*
 + Prove **base case**: T(1) &isin; *&Theta;(1 lg 1)* = &Theta;(1)
++ **Inductive hypothesis**: assume &exist; \`c_1, c_2, n_0\`:
+  &forall; \`n_0\` &lt; *m* &lt; n,
+  \`c_1 m text(lg)m <= T(m) <= c_2 m text(lg)m\`
 + Prove **inductive step**:
-  + **Assume**: T(m) &isin; *&Theta;(m lg m)*, for all *m &lt; n*
-  + **Prove**: T(n) &isin; *&Theta;(n lg n)*
-  + i.e., for big *n*, **find** *c1, c2* so that
-  + \` c_1 n text(lg)n <= T(n) <= c_2 n text(lg)n \`
+  \`c_1 n text(lg)n <= T(n) <= c_2 n text(lg)n\`
+  + (note: **same** constants \`c_1, c_2\`!)
 
 ---
 ## Inductive step for merge sort
-+ From the **recurrence**: T(n) = *2T(n/2) + &Theta;(n)*
-  + i.e., &exist; *c3*, *c4*:
++ Use **recurrence** and defn of &Theta;: &exist; \`c_3, c_4\`:
     \` 2T(n/2) + c_3 n <= T(n) <= 2T(n/2) + c_4 n \`
-+ But *n/2* &lt; *n*, so we can apply the **inductive hypothesis**:
-  + T(n/2) &isin; &Theta;( *(n/2) lg(n/2)* )
-  + i.e., &exist; *c5*, *c6*:
-    \` c_5 (n/2) text(lg)(n/2) <= T(n/2) <= c_6 (n/2) text(lg)(n/2) \`
-+ \` => (c_5 n/2)(text(lg) n - text(lg) 2) <= T(n/2)
-  <=    (c_6 n/2)(text(lg) n - text(lg) 2) \`
-+ \` => (c_5/2)(n text(lg) n - n) <= T(n/2)
-  <=    (c_6/2)(n text(lg) n - n) \`
++ Apply **inductive hypothesis** with *m = n/2*:
+  \` 2 c_1 (n/2) text(lg)(n/2) + c_3 n <= T(n) \`
+  \` <= 2 c_2 (n/2) text(lg)(n/2) + c_4 n \` <br/>
+  \` => c_1 n (text(lg)(n) - text(lg)(2)) + c_3 n <= T(n) \`
+  \` <= c_2 n (text(lg)(n) - text(lg)(2)) + c_4 n \` <br/>
+  \` => c_1 n text(lg)(n) + (c_3 - c_1)n <= T(n) \`
+  \` <= c_2 n text(lg)(n) + (c_4 - c_2)n \` <br/>
+  \` => c_1 n text(lg)(n) <= T(n) <= c_2 n text(lg)(n) \`
++ **Last step** possible by choosing \`c_1 < c_3\` and \`c_2 > c_4\`
 
 ---
 ## Inductive proof, cont.
