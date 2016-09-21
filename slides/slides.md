@@ -184,28 +184,28 @@ BG: dominoes
 
 ---
 ## Inductive proof for merge sort
-+ **Recurrence**: T(n) = *2T(n/2) + &Theta;(n)*, T(1) &isin; *&Theta;(1)*
-+ **Guess** (from recursion tree): T(n) &isin; *&Theta;(n lg n)*
-+ Prove **base case**: T(1) &isin; *&Theta;(1 lg 1)* = &Theta;(1)
++ **Recurrence**: \`T(n) = 2T(n/2) + Theta(n)\`, with T(1) = *&Theta;(1)*
++ **Guess** (from recursion tree): T(n) = *&Theta;(n lg n)*
++ Prove **base case**: T(1) = *&Theta;(1 lg 1)* = &Theta;(1)
 + **Inductive hypothesis**: assume &exist; \`c_1, c_2, n_0\`:
   &forall; \`n_0\` &lt; *m* &lt; n,
   \`c_1 m text(lg)m <= T(m) <= c_2 m text(lg)m\`
-+ Prove **inductive step**:
++ **Inductive step**: need to prove
   \`c_1 n text(lg)n <= T(n) <= c_2 n text(lg)n\`
   + (note: **same** constants \`c_1, c_2\`!)
 
 ---
 ## Inductive step for merge sort
-+ Use **recurrence** and defn of &Theta;: &exist; \`c_3, c_4\`:
++ Use **recurrence** and defn of &Theta;(n): &exist; \`c_3, c_4\`:
     \` 2T(n/2) + c_3 n <= T(n) <= 2T(n/2) + c_4 n \`
 + Apply **inductive hypothesis** with *m = n/2*:
   \` 2 c_1 (n/2) text(lg)(n/2) + c_3 n <= T(n) \`
-  \` <= 2 c_2 (n/2) text(lg)(n/2) + c_4 n \` <br/>
-  \` => c_1 n (text(lg)(n) - text(lg)(2)) + c_3 n <= T(n) \`
-  \` <= c_2 n (text(lg)(n) - text(lg)(2)) + c_4 n \` <br/>
-  \` => c_1 n text(lg)(n) + (c_3 - c_1)n <= T(n) \`
-  \` <= c_2 n text(lg)(n) + (c_4 - c_2)n \` <br/>
-  \` => c_1 n text(lg)(n) <= T(n) <= c_2 n text(lg)(n) \`
+  \` <= 2 c_2 (n/2) text(lg)(n/2) + c_4 n \`
++ \` => c_1 n (text(lg)n - text(lg)2) + c_3 n <= T(n) \`
+  \` <= c_2 n (text(lg)n - text(lg)2) + c_4 n \`
++ \` => c_1 n text(lg)n + (c_3 - c_1)n <= T(n) \`
+  \` <= c_2 n text(lg)n + (c_4 - c_2)n \`
++ \` => c_1 n text(lg)n <= T(n) <= c_2 n text(lg)n \`
 + **Last step** possible by choosing \`c_1 < c_3\` and \`c_2 > c_4\`
 
 ---
