@@ -406,7 +406,7 @@ def mult(A, B, n):
 + **Recurrence**: T(n) = *2T(n/2) + &Theta;(n)*:
   + a = *2*, b = *2*, f(n) = *&Theta;(n)*
 + \` f(n) = Theta(n) = Theta(n^(log_2 2)) \`
-  + So leaves and roots are **balanced** (case 1)
+  + So leaves and roots are **balanced** *(case 1)*
 + **Solution** is \` T(n) = Theta(n^(log_2 2) log n) = Theta(n log n) \`
 
 ---
@@ -415,7 +415,7 @@ def mult(A, B, n):
   + a = *7*, b = *2*, f(n) = *&Theta;(n^2)*
 + \` f(n) = Theta(n^2) = O(n^(log_2 7 - epsilon)) \`
   + *lg 7* &simeq; 2.8, so, e.g., *&epsilon;* = 0.4 works
-  + So **leaves** dominate (case 2)
+  + So **leaves** dominate *(case 2)*
 + **Solution** is \` T(n) = Theta(n^(log_2 7)) ~~ Theta(n^2.8) \`
 
 ---
@@ -460,7 +460,7 @@ def mult(A, B, n):
 + Running time of **insertion sort** depended on input
   + Best-case vs worst-case vs **average**-case
 + **Random variable** *X*: takes values within a domain
-  + **Domain** *&Omega;* could be `[0,1]`, \`bbb R\` = (-&infin;, &infin;), \`bbb R^n\`,
+  + **Domain** *&Omega;* could be `[0,1]`, \`bbb R\` = (-&infin;, &infin;), \`bbb R^n\`, <br/>
     `(A, A-, B+, ...)`, `{blue, red, black}`, etc.
 + **Distribution** *P(X)*: says which values are more likely
   + **Uniform**: all values equally likely
