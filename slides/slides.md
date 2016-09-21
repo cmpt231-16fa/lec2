@@ -190,9 +190,9 @@ BG: dominoes
 + **Inductive hypothesis**: assume &exist; \`c_1, c_2, n_0\`:
   &forall; \`n_0\` &lt; *m* &lt; n,
   \`c_1 m text(lg)m <= T(m) <= c_2 m text(lg)m\`
-+ **Inductive step**: need to prove
++ **Inductive step**: with the **same** constants \`c_1, c_2\`,
+  we want to **prove**
   \`c_1 n text(lg)n <= T(n) <= c_2 n text(lg)n\`
-  + (note: **same** constants \`c_1, c_2\`!)
 
 ---
 ## Inductive step for merge sort
