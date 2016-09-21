@@ -209,19 +209,6 @@ BG: dominoes
 + **Last step** possible by choosing \`c_1 < c_3\` and \`c_2 > c_4\`
 
 ---
-## Inductive proof, cont.
-+ **Substitute** into recurrence for T(n): &exist; *c3, c4, c5, c6*:
-+ \` 2T(n/2) + c_3 n <= T(n) <= 2T(n/2) + c_4 n \`
-+ \`   => c_5(n text(lg)n - n) + c_3 n <= T(n) \`
-  \` <= c_6(n text(lg)n - n) + c_4 n \`
-+ \`   => c_5 n text(lg)n + (c_3 - c_5)n <= T(n) \`
-  \` <= c_6 n text(lg)n + (c_4 - c_6)n \`
-+ We can't **choose** the constants, so we don't know that
-  \`(c_3 - c_5)>0\` and \`(c_4-c_6)<0\`,
-+ But we know that *n* &isin; *o(n lg n)*, so for big *n*,
-  the *n lg n* terms **dominate** and we have T(n) &isin; *&Theta;(n lg n)*.
-
----
 <!-- .slide: data-background-image="http://sermons.seanho.com/img/bg/unsplash-e6XsI7qqvAA-forest_sunbeam.jpg" -->
 ## Outline for today
 + Divide and conquer *(ch4)*
