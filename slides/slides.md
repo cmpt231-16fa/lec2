@@ -395,7 +395,8 @@ def mult(A, B, n):
 + Case *2*: if \` f(n) in O(n^(log_b a - epsilon)) \`
   for some *&epsilon;* > 0
   + **Leaves** dominate: \` T(n) = Theta(n^(log_b a)) \`
-+ Case *3*: if \` f(n) in Omega(n^(log_b a + epsilon)) \`,
++ Case *3*: if \` f(n) in Omega(n^(log_b a + epsilon)) \`
+  for some *&epsilon;* > 0,
   **and** if \` a f(n/b) <= c f(n) \` for some *c* &lt; 1 and big *n*
   + **Roots** dominate: \` T(n) = Theta(f(n)) \`
   + Polynomials \` f(n) = n^k \` satisfy the **regularity** condition
