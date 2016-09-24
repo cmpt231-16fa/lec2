@@ -508,7 +508,7 @@ def mult(A, B, n):
 ```
 def shuffle(A, n):
   for i in 1 to n:
-    swap( A[ i ], A[ random( i+1, n ) ] )
+    swap( A[ i ], A[ random( i, n ) ] )
 ```
 
 + Use **PRNG** `random(a,b)`: int between *a* and *b*
