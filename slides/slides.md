@@ -499,6 +499,9 @@ def mult(A, B, n):
 + Or **hardware** RNG module (on motherboard, USB, etc.)
   + shot noise, Zener diode noise, beam splitters, etc.
 
+>>>
+ran out of time here
+
 ---
 ## Fisher-Yates shuffle
 + Idea by **Fisher + Yates** (1938)
