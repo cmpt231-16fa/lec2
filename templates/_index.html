@@ -2,12 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title><%= pkg.info.title %></title><!-- CUSTOM -->
+    <title><%= pkg.description %></title>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
+    <link rel=icon href="static/img/cross.svg" sizes="any" type="image/svg+xml" />
     <link rel="stylesheet" href="lib/css/reveal.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous" />
     <link rel="stylesheet" href="lib/css/theme/black.css" id="theme" />
     <link rel="stylesheet" href="lib/css/hljs/zenburn.css" />
 	<link rel="stylesheet" href="static/css/slides.css" />
@@ -33,8 +35,7 @@
         <% _.forEach(slides, function(slide) { %>
           <% if (!_.isArray(slide)) { %>
             <%= section(slide) %>
-          <% } %>
-          <% if (_.isArray(slide)) { %>
+          <% } else { %>
             <section>
               <% _.forEach(slide, function(verticalslide) { %>
                 <%= section(verticalslide) %>
@@ -43,7 +44,12 @@
           <% } %>
         <% }); %>
 
-        <div id="footer"><%= pkg.info.disp_url %></div>
+        <div id="footer"><%= pkg.config.pretty_url %>
+          <a href="https://github.com/<%= pkg.repository %>">
+            <i class="fa fa-github fa-inverse"></i></a>
+          <a href="static/<%= config.shortname %>.pdf">
+            <i class="fa fa-file-pdf-o fa-inverse"></i></a>
+        </div>
       </div>
     </div>
 
@@ -67,8 +73,8 @@
         },
 
         multiplex: {
-          url: 'https://mp-seanho00.rhcloud.com:8443/',
-          id: '6ade2bc8ad69cc2f',
+          url: '<%= pkg.config.multiplex.url %>',
+          id : '<%= pkg.config.multiplex.id  %>',
           secret: Reveal.getQueryHash().s || null
         },
 
@@ -78,7 +84,7 @@
           { src: 'lib/plugin/notes/notes.js', async: true },
           { src: 'lib/plugin/math/math.js', async: true },
           { src: 'lib/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-          { src: '//cdn.socket.io/socket.io-1.4.5.js', async: true },
+          { src: 'https://cdn.socket.io/socket.io-1.4.5.js', async: true },
           Reveal.getQueryHash().s ? { src: 'lib/plugin/multiplex/master.js', async: true } : { src: 'lib/plugin/multiplex/client.js', async: true },
           { src: 'js/loadhtmlslides.js', condition: function() { return !!document.querySelector( '[data-html]' ); } },
           { src: 'https://cdnjs.cloudflare.com/ajax/libs/classlist/2014.01.31/classList.min.js', condition: function() { return !document.body.classList; } }

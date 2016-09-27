@@ -2,7 +2,9 @@
 module.exports = (grunt) ->
 
     grunt.initConfig
-        pkg: grunt.file.readJSON 'package.json'
+        pkg: grunt.file.readJSON('package.json')
+        config:
+            shortname: '<%= pkg.name.replace(new RegExp(".*\/"), "") %>'
 
         watch:
 
@@ -36,8 +38,6 @@ module.exports = (grunt) ->
             livereload:
                 options:
                     port: 9000
-                    # Change hostname to '0.0.0.0' to access
-                    # the server from outside.
                     hostname: 'localhost'
                     base: '.'
                     open: true
@@ -73,6 +73,10 @@ module.exports = (grunt) ->
                         'reveal.js':
                             files: [ 'js/*.js', 'css/{,*/}*.css', 'plugin/**' ]
 
+        exec:
+            print: 'phantomjs rasterise.js "http://localhost:9000/?print-pdf" static/<%= config.shortname %>.pdf'
+            thumbnail: 'convert -resize 50% static/<%= config.shortname %>.pdf[0] static/img/thumbnail.jpg'
+
         copy:
             dist:
                 files: [{
@@ -85,7 +89,7 @@ module.exports = (grunt) ->
                     dest: 'dist/'
                 },{
                     expand: true
-                    src: ['index.html', 'CNAME', 'favicon.ico']
+                    src: ['index.html', 'CNAME', 'favicon.ico', '.nojekyll']
                     dest: 'dist/'
                     filter: 'isFile'
                 }]
@@ -96,13 +100,13 @@ module.exports = (grunt) ->
                 dir: 'dist'
                 commit: true
                 push: true
-                message: 'Built from %sourceCommit% on branch %sourceBranch%'
+                fetchProgress: false
                 config:
-                    'user.name': '<%= pkg.git.name %>'
-                    'user.email': '<%= pkg.git.email %>'
-            pages:
+                    'user.name': '<%= pkg.config.git.name %>'
+                    'user.email': '<%= pkg.config.git.email %>'
+            github:
                 options:
-                    remote: '<%= pkg.repository.url %>'
+                    remote: 'git@github.com:<%= pkg.repository %>'
                     branch: 'gh-pages'
 
     # Load all grunt tasks.
@@ -118,15 +122,19 @@ module.exports = (grunt) ->
             slides = grunt.file.readJSON 'slides/list.json'
 
             html = grunt.template.process indexTemplate, data:
-                pkg:
-                    grunt.config 'pkg'
-                slides:
-                    slides
+                pkg: grunt.config 'pkg'
+                config: grunt.config 'config'
+                slides: slides
                 section: (slide) ->
                     grunt.template.process sectionTemplate, data:
                         slide:
                             slide
             grunt.file.write 'index.html', html
+
+    grunt.registerTask 'cname',
+        'Create CNAME from NPM config if needed.', ->
+            if grunt.config 'pkg.config.cname'
+                grunt.file.write 'CNAME', grunt.config 'pkg.config.cname'
 
     grunt.registerTask 'test',
         '*Lint* javascript and coffee files.', [
@@ -144,14 +152,17 @@ module.exports = (grunt) ->
 
     grunt.registerTask 'pdf',
         'Render a PDF copy of the presentation (using PhantomJS)', [
-            'serve'
+            'buildIndex'
+            'bower'
+            'connect:livereload'
+            'exec:print'
+            'exec:thumbnail'
         ]
 
     grunt.registerTask 'dist',
         'Save presentation files to *dist* directory.', [
-            'test'
-            'buildIndex'
-            'bower'
+            'pdf'
+            'cname'
             'copy'
         ]
 
