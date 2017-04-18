@@ -1,9 +1,9 @@
 {
   "name": "@cmpt231-16fa/lec2",
-  "version": "1.0.1",
   "repository": "cmpt231-16fa/lec2",
   "description": "Lecture 2 CMPT231",
   "keywords": ["lecture", "algorithms"],
+  "version": "1.2.5",
   "author": "Sean Ho <seanho@seanho.com> (http://seanho.com)",
   "config": {
     "pretty_url": "cmpt231.seanho.com/lec2",
@@ -15,32 +15,54 @@
     "git": {
       "name": "Sean Ho",
       "email": "travis@seanho.com"
-    }
+    },
+    "history": [
+      {
+        "venue": "Trinity Western University",
+        "city": "Langley",
+        "date": "2016-09-20"
+      }
+    ],
+    "slides": [ "slides/slides.md" ],
+    "css": [
+      {
+        "href": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css",
+       	"integrity": "sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0="
+      },{
+        "href": "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.4.1/css/reveal.min.css",
+       	"integrity": "sha256-5z1tvl5q2pgp1SJIkfLhpdE5JfcAAN1FDBQe3YzlUdg="
+      },{
+        "href": "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/styles/atom-one-dark.min.css",
+       	"integrity": "sha256-akwTLZec/XAFvgYgVH1T5/369lhA2Efr22xzCNl1nHs="
+      }
+    ],
+    "js": [
+      {
+        "src": "https://cdnjs.cloudflare.com/ajax/libs/headjs/1.0.3/head.min.js",
+       	"integrity": "sha256-+09kLhwACKXFPDvqo4xMMvi4+uXFsRZ2uYGbeN1U8sI="
+      },{
+        "src": "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.4.1/js/reveal.min.js",
+       	"integrity": "sha256-iSS1lZpXv81SOmVH9u7LxPptbmNmVc40zG/1R2cKUbk="
+      }
+    ]
   },
   "license": "CC-BY-SA-4.0",
   "private": true,
   "devDependencies": {
-    "bower": "^1.7.9",
     "grunt": "^1.0.1",
     "grunt-contrib-connect": "^1.0.2",
-    "grunt-contrib-watch": "^1.0.0",
     "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-jshint": "^1.0.0",
     "load-grunt-tasks": "^3.5.2",
-    "grunt-bower": "^0.21.2",
-    "grunt-exec": "^1.0.0",
+    "grunt-exec": "^2.0.0",
+    "grunt-curl": "^2.2.0",
     "grunt-build-control": "^0.7.1",
     "grunt-coffeelint": "^0.0.16",
-    "coffeelint": "^1.15.7",
-    "phantom": "^2.1.21"
-  },
-  "engines": {
-    "node": ">=0.10.0",
-    "npm": ">=1.3.7"
+    "coffeelint": "^1.16.0",
+    "phantom": "^4.0.1"
   },
   "scripts": {
     "test": "grunt test",
-    "postinstall": "bower install",
+    "pdf": "grunt pdf",
     "deploy": "grunt deploy"
   }
 }

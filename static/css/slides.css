@@ -1,81 +1,22 @@
-/* Shading background images */
-@media print {
-  section[data-background-image] .slide-background {
-    background-color: rgba(0,0,0,0.85);
-    background-blend-mode: overlay;
-  }
-}
-section[data-background-image] {
-  background-color: rgba(0,0,0,0.85);
-}
-@media print {
-  section.empty[data-background-image] .slide-background {
-    background-color: rgba(0,0,0,0);
-  }
-}
-section.empty[data-background-image] {
-  background-color: rgba(0,0,0,0);
-  text-shadow: black 0 0 0.35em;
-}
+/*********************************************
+ * Local styles specific to my presentations
+ *********************************************/
 
-/* Override slide centering */
+/* Larger text */
+/*
+html { font-size: 3em }
+*/
+
+/* Override slide centering (interferes with print-pdf?) */
 @media screen {
-  section.top {
-    top: 0 !important;
-  }
+  section.top { top: 0 !important; }
   section.bottom {
     top: initial !important;
     bottom: 0;
   }
 }
 
-/* Small text, e.g., Scripture refs.
- * Override black.css: .reveal small {} */
-.reveal section small {
-  vertical-align: inherit;
-}
-
-/* Highlighted Text */
-.reveal section strong {
-  color: yellow;
-}
-.reveal section em {
-  color: #17ff2e;
-}
-.reveal section .hl1 {
-  color: #17ff2e;
-}
-.reveal section .hl2 {
-  color: #19b1ff;
-}
-.reveal section .hl3 {
-  color: #ff2c2d;
-}
-.reveal section.has-light-background strong {
-  color: #e20606;
-}
-
-/* Special theme for review/application questions */
-.reveal section.Q * {
-  text-transform: none;
-}
-.reveal section.Q h2:after {
-  border: none;
-}
-
-/* Titles / headers */
-.reveal section h1,
-.reveal section h2,
-.reveal section h3,
-.reveal section h4,
-.reveal section h5,
-.reveal section h6 {
-  text-transform: none;
-  text-shadow: inherit;
-}
-.reveal section h2 {
-  margin-bottom: 2rem;
-}
+/* Line separator below H2 */
 .reveal section h2:after {
   content: "";
   display: block;
@@ -83,6 +24,11 @@ section.empty[data-background-image] {
   width: 30%;
   border-bottom: 1px solid;
 }
+/* Except on special reverse-color slides */
+.reveal section.has-light-background h2:after { display: none; }
+
+/* Larger font for Chinese */
+.reveal section .zh { font-size: larger }
 
 /* Flexbox layout for images */
 .imgbox {
@@ -92,33 +38,45 @@ section.empty[data-background-image] {
   align-items: flex-start;
   align-content: flex-start;
 }
-.imgbox > div {
-  flex: 1;
-}
-.reveal section .imgbox img {
-  border: none;
+.imgbox > div { flex: 1 }
+
+/* Old-style CSS flex box for Phantom, #52 */
+@media print {
+  .imgbox {
+    display: -webkit-box;
+    -webkit-flex-flow: row;
+    -webkit-box-pack: center;
+  }
+  .imgbox > div {
+    -webkit-box-flex: 1;
+  }
 }
 
 /* Image captions */
 .reveal section .caption {
-  font-size: 50%;
+  font-size: 0.45rem;
   color: #aaa;
-}
-@media screen {
-  .reveal section.empty .caption {
-    background-color: rgba(0,0,0,0.85);
-  }
 }
 
 /* Common slide header/footer */
 #header, #footer {
   position: absolute;
-  left: 0;
-  font-size: 60%;
+  z-index: 20;
+  left: 0.5em;
+  font-size: 16px;
 }
-#header {
-  top: 0;
+#header { top: 0.5em; }
+#footer { bottom: 0.5em; }
+
+#footer .links { margin: 0 1em }
+
+#footer .commit {
+  color: rgba(255, 255, 255, 0.1);
+  font-size: 0.75em;
 }
-#footer {
-  bottom: 0;
+
+/* Placeholder if Javascript is disabled */
+noscript .noscript {
+  padding: 20% 5%;
+  text-align: center;
 }

@@ -1,59 +1,44 @@
 // Derived from phantomjs example rasterize.js
 // https://github.com/ariya/phantomjs/blob/master/examples/rasterize.js
 
-var page = require('webpage').create(),
-    system = require('system'),
-    address, output, paper, pageW, pageH, size;
+var page = require('webpage').create();
+var system = require('system');
+var Usage =
+    'Usage:' + system.args[0] + 'URL [filename] [width] [height]\n' +
+    '  defaults: output.pdf 1024 768';
 
-if (system.args.length < 3 || system.args.length > 5) {
-    console.log('Usage: rasterize.js URL filename [paperwidth*paperheight|paperformat] [zoom]');
-    console.log('  paper (pdf output) examples: "5in*7.5in", "10cm*20cm", "A4", "Letter"');
-    console.log('  image (png/jpg output) examples: "1920px" entire page, window width 1920px');
-    console.log('                                   "800px*600px" window, clipped to 800x600');
+if (system.args.length < 2 || system.args.length > 6) {
+    console.log(Usage);
     phantom.exit(1);
-} else {
-    address = system.args[1];
-    output = system.args[2];
-    paper = '1024px*768px';
-    pageW = '1024px';
-    pageH = '768px';
-    if (system.args.length > 3) {
-        paper = system.args[3];
-    }
-
-    if (paper.indexOf('*') > -1) {
-        size = paper.split('*');
-        pageW = parseInt(size[0], 10);
-        pageH = parseInt(size[1], 10);
-    } else if (output.substr(-4) === ".pdf") {
-        console.log('PDF paper size:', paper);
-        page.paperSize = { format: paper, orientation: 'portrait', margin: '1cm' };
-    } else {
-        pageW = parseInt(size, 10);
-        pageH = Math.round(pageW * 3/4);
-    }
-
-    console.log('Page size:', pageW, 'x', pageH);
-    page.paperSize = { width: pageW, height: pageH, margin: '0px' };
-    page.viewportSize = { width: pageW, height: pageH };
-    page.clipRect = { top: 0, left: 0, width: pageW, height: pageH };
-
-    if (system.args.length > 4) {
-        page.zoomFactor = system.args[4];
-        console.log('Zoom:', page.zoomFactor);
-    }
-
-    console.log('Wait 5 sec for render...');
-    page.open(address, function (status) {
-        if (status !== 'success') {
-            console.log('Unable to load the address!');
-            phantom.exit(1);
-        } else {
-            window.setTimeout(function () {
-                page.render(output);
-                phantom.exit();
-            }, 5000);
-        }
-    });
 }
+
+var URL = system.args[1];
+var output = system.args[2] ? system.args[2] : 'output.pdf';
+var pageW = system.args[3] ? parseInt(system.args[3],10) : 1024;
+var pageH = system.args[4] ? parseInt(system.args[4],10) :  768;
+page.zoomFactor = 1.0
+
+console.log('Saving', URL, 'to', output,
+    'at', pageW, 'x', pageH);
+
+page.viewportSize = { width: pageW, height: pageH };
+
+if (output.substr(-4) === '.pdf') {
+    page.paperSize = { width: pageW, height: pageH, margin: 0 }
+}
+
+console.log('Wait 10 sec for render ...');
+
+page.open(URL, function (status) {
+    if (status !== 'success') {
+        console.log('Unable to load the address!');
+        phantom.exit(1);
+    } else {
+        window.setTimeout(function () {
+            console.log('... render done.');
+            page.render(output);
+            phantom.exit(0);
+        }, 10000);
+    }
+});
 
