@@ -18,16 +18,16 @@ module.exports = (grunt) ->
 
     curl:
       qr:
-        src: 'https://zxing.org/w/chart?cht=qr&chs=350x350&chld=M&choe=UTF-8&chl=<%= pkg.config.pretty_url %>'
+        src: 'https://zxing.org/w/chart?cht=qr&chs=350x350&chld=M&choe=UTF-8&chl=https%3A%2F%2F<%= pkg.config.pretty_url %>'
         dest: 'static/img/<%= pkg.shortname %>-qr.png'
       phantom:
         src: 'https://github.com/astefanutti/decktape/releases/download/v1.0.0/phantomjs-linux-x86-64'
         dest: 'phantomjs'
 
     exec:
-      print: 'chmod +x phantomjs; ./phantomjs decktape/decktape.js -s 1024x768 --load-pause=10000 reveal "http://localhost:9000/" static/<%= pkg.shortname %>.pdf'
-      print_hd: 'chmod +x phantomjs; ./phantomjs decktape/decktape.js -s 1920x1080 --load-pause=10000 reveal "http://localhost:9000/" static/<%= pkg.shortname %>_hd.pdf'
-      thumbnail: 'convert -resize 50% static/<%= pkg.shortname %>.pdf[0] static/img/thumbnail.jpg'
+      phantom: 'chmod +x phantomjs'
+      print: './phantomjs decktape/decktape.js -s 1024x768 --load-pause=10000 reveal "http://localhost:9000/" static/<%= pkg.shortname %>.pdf'
+      thumbnail: './phantomjs decktape/decktape.js -s 1024x768 --screenshots --screenshots-directory . --slides 1 reveal "http://localhost:9000/" static/img/thumbnail.jpg'
 
     copy:
       index:
@@ -71,7 +71,7 @@ module.exports = (grunt) ->
           repository: 'https://github.com/astefanutti/decktape'
           depth: 1
 
-  # Generated grut vars
+  # Generated grunt vars
   grunt.config.merge
     pkg:
       shortname: '<%= pkg.name.replace(new RegExp(".*\/"), "") %>'
@@ -96,11 +96,16 @@ module.exports = (grunt) ->
     'Create .nojekyll file for Github Pages', ->
       grunt.file.write '.nojekyll', ''
 
-  grunt.registerTask 'pdf',
-    'Render a PDF copy of the presentation (using PhantomJS)', [
-      'serve'
-      'gitclone:decktape'
+  grunt.registerTask 'install',
+    '*Install* dependencies', [
       'curl:phantom'
+      'exec:phantom'
+      'gitclone:decktape'
+    ]
+
+  grunt.registerTask 'pdf',
+    'Render a **PDF** copy of the presentation (using PhantomJS)', [
+      'serve'
       'exec:print'
       'exec:thumbnail'
     ]
@@ -122,7 +127,7 @@ module.exports = (grunt) ->
   grunt.registerTask 'deploy',
     'Deploy to Github Pages', [
       'dist'
-      'buildcontrol'
+      'buildcontrol:github'
     ]
 
   # Define default task.

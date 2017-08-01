@@ -1,4 +1,4 @@
-<!-- .slide: data-background-image="static/bg/unsplash-Jztmx9yqjBw-stars.jpg" -->
+<!-- .slide: data-background-image="static/bg/unsplash-Jztmx9yqjBw-stars.jpg" data-state="title" -->
 # Reveal-Skel
 ## A template for Reveal.js-based presentations
 
@@ -7,6 +7,10 @@
 [![Node dependencies](https://david-dm.org/sermons/reveal-skel.svg)](https://david-dm.org/sermons/reveal-skel)
 [![Node dev status](https://david-dm.org/sermons/reveal-skel/dev-status.svg)](https://david-dm.org/sermons/reveal-skel#info=devDependencies)
 </div></div>
+
+<div class="ref">
+[(open master view)](http://reveal-skel.seanho.com/?s=45ba034647cea150)
+</div>
 
 >>>
 + Speaker notes go here.
